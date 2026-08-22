@@ -65,6 +65,11 @@ test.describe('the Warden’s client applies what a player may not', () => {
       const actors = w.game.actors.filter((a: any) => a.name.startsWith('__e2e_')).map((a: any) => a.id);
       if (actors.length) await w.game.actors.documentClass.deleteDocuments(actors);
       await w.game.users.get(id)?.delete();
+
+      // An active scene changes the client's chrome, and the visual baselines measure windows
+      // against it — a stage left standing here is a failure over in that file.
+      const scenes = w.game.scenes.filter((scene: any) => scene.name.startsWith('__e2e_')).map((s: any) => s.id);
+      if (scenes.length) await w.game.scenes.documentClass.deleteDocuments(scenes);
     }, playerId);
   });
 

@@ -15,13 +15,25 @@ playwright test
 ```bash
 npm run test:e2e:setup    # once — build test/foundry-data/ (isolated, gitignored)
 npx playwright install chromium   # once
-npm run test:e2e          # build dist + packs, then run
+npm run test:e2e          # preflight, build dist + packs, then run
 npm run test:e2e:run      # skip the rebuild (dist and packs must be current)
+npx playwright test <file> # one spec file — the fast path while writing one
+npm run test:e2e:failed   # only what failed last run
+npm run test:e2e:changed  # only spec files git sees as changed
 npm run test:e2e:ui       # Playwright UI mode
 npm run test:e2e:report   # open the last HTML report
 npm run test:foundry      # just boot the test Foundry for manual poking
 npm run check:e2e         # type-check these specs (separate tsconfig + Playwright globals)
 ```
+
+`test:e2e:changed` reads git, not the import graph: these specs drive a browser rather than
+importing `module/`, so a change under `module/` selects nothing. It answers "I edited specs",
+not "I edited the system" — for the latter, name the spec files that cover what you touched.
+
+`test:e2e` fails before the build when the harness cannot run at all (`scripts/e2e-preflight.sh`):
+Foundry open — it holds the LevelDB lock on the packs, so they cannot be rebuilt — no Foundry app,
+or port 30005 held by something silent. The harness's *server* is happy beside a running Foundry
+(its own data dir, its own port), so a tree already built and packed can use `test:e2e:run`.
 
 ## What differs from the module template
 
@@ -34,6 +46,35 @@ npm run check:e2e         # type-check these specs (separate tsconfig + Playwrig
   as a whole. Left alone, the test Foundry takes an exclusive LevelDB lock on the repo's packs and
   blocks `scripts/packs.sh` and your own Foundry. Everything else (`dist`, `templates`, `lang`,
   `images`) stays linked, so a Vite rebuild reaches the harness with no re-clone.
+
+## Which spec covers what
+
+The suite is ~8 minutes; one spec is 15–60 seconds. While iterating, run the spec — the whole
+suite is a gate before a commit, not a step after every edit.
+
+| Touching | Run |
+|---|---|
+| `checks/harm.ts`, `chat/cards.ts` targets, `@Harm` | `damage-targets` |
+| `dispatch/`, `checks/wound.ts`, anything a player asks the Warden to do | `damage-relay` |
+| `checks/checks.ts`, `rolls/`, `tables/` | `remake`, `condition-modifiers` |
+| `ui/actor/CharacterSheet*` | `character-sheet`, `sheets` |
+| `ui/actor/CreatureSheet*`, creature settings | `creature-sheet`, `creature-settings` |
+| `ui/item/**` | `item-sheets`, `class-sheet`, `skill-sheet` |
+| `ui/generator/**` | `actor-generator` |
+| `data/*-models.js`, `template.json` | `data-models` |
+| `packs/_source/**`, `content/books/**` | `compendiums`, `psg-content` |
+| `css/**`, any `<style>` block, any markup a window paints | `visual-baselines` |
+| `system.json`, `init.ts`, `api/` | `system-loads` |
+
+Anything under `css/` or a component's markup means `visual-baselines` — that tier exists to
+catch exactly the pixel you did not mean to move.
+
+## What a test may not cost
+
+A spec that reloads the client pays a **full Foundry boot, ~25 seconds**, every time. One
+`beforeEach` doing that was 4.4 of the suite's 10 minutes on its own. Reload only when a test
+genuinely needs a fresh client; the usual reason to want one — cleanup having closed the chat UI —
+is a cleanup bug, and the fix is below.
 
 ## Preconditions
 
@@ -68,7 +109,10 @@ The flag is one-shot, so it is re-armed on every boot.
 - Use the **`gmPage`** fixture from `fixtures/foundry-clients.ts`. Don't re-implement login.
 - The world is shared across specs (`workers: 1`). Create throwaway documents named with the
   **`__e2e_`** prefix and delete them in `afterEach` — leave the world as you found it. Close
-  windows from **both** registries: `ui.windows` (AppV1) and `foundry.applications.instances` (V2).
+  windows from **both** registries: `ui.windows` (AppV1) and `foundry.applications.instances` (V2),
+  but **only the ones the test opened**. Foundry keeps its persistent chrome in `ui` — the sidebar
+  the chat log lives in above all — and closing that leaves no UI to click a button in, which costs
+  the next test a whole client reload. `damage-targets.spec.ts` shows the filter.
 - Reach Foundry through `page.evaluate(() => game.…)`; drive the UI with stable selectors
   (the application element id, `data-*` hooks — not text or nth-child).
 - Compare **`doc.toObject().system`**, not `doc.system`, when asserting stored data:

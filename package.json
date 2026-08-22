@@ -23,6 +23,8 @@
     "check": "tsc --noEmit && svelte-check --tsconfig ./tsconfig.svelte.json",
     "test:e2e": "./scripts/e2e-preflight.sh && npm run build && ./scripts/packs.sh pack && npm run setup && playwright test",
     "test:e2e:run": "playwright test",
+    "test:e2e:changed": "playwright test --only-changed",
+    "test:e2e:failed": "playwright test --last-failed",
     "test:e2e:setup": "node scripts/setup-test-env.ts",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",

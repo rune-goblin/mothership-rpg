@@ -1,5 +1,5 @@
 import { type Page } from '@playwright/test';
-import { test, expect, waitForGameReady } from './fixtures/foundry-clients.ts';
+import { test, expect } from './fixtures/foundry-clients.ts';
 
 /**
  * Only a real Foundry proves this end to end: the target set is Foundry's own, the row is drawn by
@@ -41,8 +41,16 @@ const answer = async (page: Page, action: string) => {
   await expect(dialog).toHaveCount(0);
 };
 
-/** The harness world ships no scene, and targeting is a canvas act — so this makes one first. */
-async function withCanvas(page: Page) {
+/** The uuids the cast is reached by, built once in `beforeAll` and reset between tests. */
+type Cast = { shooter: string; victim: string; actor: string };
+let cast: Cast;
+
+/**
+ * A shooter with a gun, and a victim on the canvas — built once. Nine tests used to create and
+ * delete this whole cast apiece, which was most of what the file spent its time on; what actually
+ * differs between them is the victim's numbers, and `aim` writes those.
+ */
+async function buildCast(page: Page): Promise<Cast> {
   await page.evaluate(async () => {
     const w = window as any;
     if (w.canvas.scene?.name === '__e2e_stage') return;
@@ -52,12 +60,8 @@ async function withCanvas(page: Page) {
   await expect
     .poll(() => page.evaluate(() => (window as any).canvas.ready === true), { timeout: 30_000 })
     .toBe(true);
-}
 
-/** A shooter with a gun, a victim on the canvas, and the victim in the shooter's crosshairs. */
-async function stage(page: Page, victimSystem: Record<string, unknown> = {}) {
-  await withCanvas(page);
-  return await page.evaluate(async (system: Record<string, unknown>) => {
+  return await page.evaluate(async () => {
     const w = window as any;
 
     const shooter = await w.Actor.create({
@@ -70,16 +74,59 @@ async function stage(page: Page, victimSystem: Record<string, unknown> = {}) {
     ]);
     await w.game.user.update({ character: shooter.id });
 
-    const victim = await w.Actor.create({ name: '__e2e_victim', type: 'character', system });
+    const victim = await w.Actor.create({ name: '__e2e_victim', type: 'character' });
     const [token] = await w.canvas.scene.createEmbeddedDocuments('Token', [
       { name: '__e2e_victim', actorId: victim.id, x: 1000, y: 1000 },
     ]);
     await new Promise((resolve) => setTimeout(resolve, 200));
-    (token.object ?? w.canvas.tokens.get(token.id))?.setTarget(true, { releaseOthers: true });
 
     w.ui.sidebar.collapse();
     return { shooter: shooter.uuid as string, victim: token.uuid as string, actor: victim.uuid as string };
-  }, victimSystem);
+  });
+}
+
+/**
+ * Point the standing cast at this test's situation: the victim's numbers, the crosshairs, and
+ * nothing left over from the test before.
+ *
+ * Every field a test reads is written every time rather than merged — the token is unlinked, so a
+ * hit lands in its delta, and a partial reset would leave the previous test's number underneath.
+ */
+async function aim(page: Page, victimSystem: Record<string, unknown> = {}): Promise<Cast> {
+  await page.evaluate(
+    async ({ ids, system }: { ids: Cast; system: Record<string, unknown> }) => {
+      const w = window as any;
+      const health = (system.health ?? {}) as { value?: number; max?: number };
+      const hits = (system.hits ?? {}) as { value?: number; max?: number };
+
+      const base = await w.fromUuid(ids.actor);
+      const worn = base.items.filter((item: any) => item.name.startsWith('__e2e_')).map((i: any) => i.id);
+      if (worn.length) await base.deleteEmbeddedDocuments('Item', worn);
+
+      const token = await w.fromUuid(ids.victim);
+      await token.actor.update({
+        system: {
+          health: { value: health.value ?? 20, max: health.max ?? 20 },
+          hits: { value: hits.value ?? 0, max: hits.max ?? 2 },
+        },
+      });
+
+      // The wound effect is the shooter's, and two tests set it.
+      const shooter = await w.fromUuid(ids.shooter);
+      await shooter.items.find((i: any) => i.type === 'weapon').update({ 'system.woundEffect': '' });
+
+      // A second victim belongs to the one test that makes it.
+      const strays = w.canvas.scene.tokens.filter((t: any) => t.name === '__e2e_second').map((t: any) => t.id);
+      if (strays.length) await w.canvas.scene.deleteEmbeddedDocuments('Token', strays);
+      const strayActors = w.game.actors.filter((a: any) => a.name === '__e2e_second').map((a: any) => a.id);
+      if (strayActors.length) await w.game.actors.documentClass.deleteDocuments(strayActors);
+
+      for (const targeted of [...w.game.user.targets]) targeted.setTarget(false, { releaseOthers: false });
+      (token.object ?? w.canvas.tokens.get(token.id))?.setTarget(true, { releaseOthers: true });
+    },
+    { ids: cast, system: victimSystem },
+  );
+  return cast;
 }
 
 /** Returns the card's own damage total: what the buttons offer is what the dice said, not a constant. */
@@ -108,30 +155,45 @@ const row = (page: Page, message: string) =>
   page.locator(`[data-message-id="${message}"] .card-target`).first();
 
 test.describe('applying damage to the targeted actor', () => {
-  test.beforeEach(async ({ gmPage }) => {
-    // This suite's cleanup closes every ApplicationV2, the sidebar included, so the chat UI a
-    // button is clicked in has to be rebuilt first.
-    await gmPage.reload();
-    await waitForGameReady(gmPage);
+  test.beforeAll(async ({ gmPage }) => {
+    cast = await buildCast(gmPage);
+  });
+
+  // The cast and its scene are this file's, and an active scene changes the client's chrome — which
+  // moves every window `visual-baselines.spec.ts` measures. Leaving one behind is what made those
+  // baselines depend on whether this file ran first.
+  test.afterAll(async ({ gmPage }) => {
+    await gmPage.evaluate(async () => {
+      const w = window as any;
+      await w.game.user.update({ character: null });
+      for (const targeted of [...w.game.user.targets]) targeted.setTarget(false, { releaseOthers: false });
+
+      const tokens = w.canvas.scene.tokens.filter((t: any) => t.name.startsWith('__e2e_')).map((t: any) => t.id);
+      if (tokens.length) await w.canvas.scene.deleteEmbeddedDocuments('Token', tokens);
+      const actors = w.game.actors.filter((a: any) => a.name.startsWith('__e2e_')).map((a: any) => a.id);
+      if (actors.length) await w.game.actors.documentClass.deleteDocuments(actors);
+      const scenes = w.game.scenes.filter((scene: any) => scene.name.startsWith('__e2e_')).map((s: any) => s.id);
+      if (scenes.length) await w.game.scenes.documentClass.deleteDocuments(scenes);
+    });
   });
 
   test.afterEach(async ({ gmPage }) => {
     await unrigDie(gmPage);
     await gmPage.evaluate(async () => {
       const w = window as any;
-      for (const app of (w.foundry.applications.instances?.values?.() ?? []) as any[]) await app.close?.();
-      await w.game.user.update({ character: null });
-      for (const token of w.game.user.targets) token.setTarget(false, { releaseOthers: false });
 
-      const tokens = w.canvas.scene.tokens.filter((t: any) => t.name.startsWith('__e2e_')).map((t: any) => t.id);
-      if (tokens.length) await w.canvas.scene.deleteEmbeddedDocuments('Token', tokens);
-      const actors = w.game.actors.filter((a: any) => a.name.startsWith('__e2e_')).map((a: any) => a.id);
-      if (actors.length) await w.game.actors.documentClass.deleteDocuments(actors);
+      // Only what a test opened. Foundry keeps its persistent chrome in `ui` — the sidebar the chat
+      // log lives in above all — and closing that leaves no chat UI to click a button in, which is
+      // what used to cost this file a full client reload before every test.
+      const persistent = new Set(Object.values(w.ui).filter((part: any) => part && typeof part === 'object'));
+      for (const app of (w.foundry.applications.instances?.values?.() ?? []) as any[]) {
+        if (!persistent.has(app)) await app.close?.();
+      }
     });
   });
 
   test('a hit names who it was aimed at, and its button spends their Health', async ({ gmPage }) => {
-    const { shooter, victim } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } });
 
     const { message, total } = await fire(gmPage, shooter);
 
@@ -144,7 +206,7 @@ test.describe('applying damage to the targeted actor', () => {
   });
 
   test('the same damage cannot be spent on the same target twice', async ({ gmPage }) => {
-    const { shooter, victim } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } });
 
     const { message, total } = await fire(gmPage, shooter);
     await row(gmPage, message).locator('.mothership-action').first().click();
@@ -156,7 +218,7 @@ test.describe('applying damage to the targeted actor', () => {
   });
 
   test('the half button spends half, rounded down', async ({ gmPage }) => {
-    const { shooter, victim } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } });
 
     const { message, total } = await fire(gmPage, shooter);
     await row(gmPage, message).locator('.mothership-action').nth(1).click();
@@ -166,7 +228,7 @@ test.describe('applying damage to the targeted actor', () => {
 
   // PSG 25 — a suit's Damage Reduction comes off each hit before the bar is touched.
   test('armour keeps its Damage Reduction off the hit', async ({ gmPage }) => {
-    const { shooter, victim, actor } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim, actor } = await aim(gmPage, { health: { value: 20, max: 20 } });
     await gmPage.evaluate(async (u: string) => {
       const actor = await (window as any).fromUuid(u);
       await actor.createEmbeddedDocuments('Item', [
@@ -182,7 +244,7 @@ test.describe('applying damage to the targeted actor', () => {
 
   // The damage was already rolled: aiming again moves who it is offered to, and must not lose it.
   test('aiming again keeps the damage the card already rolled', async ({ gmPage }) => {
-    const { shooter, victim, actor } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim, actor } = await aim(gmPage, { health: { value: 20, max: 20 } });
 
     const { message, total } = await fire(gmPage, shooter);
 
@@ -222,7 +284,7 @@ test.describe('applying damage to the targeted actor', () => {
   // card must survive it: an emptied card can never be aimed again, and its record of what was
   // already taken would go with the rows.
   test('aiming with nothing targeted leaves the card as it stands', async ({ gmPage }) => {
-    const { shooter, victim } = await stage(gmPage, { health: { value: 20, max: 20 } });
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } });
 
     const { message, total } = await fire(gmPage, shooter);
     await row(gmPage, message).locator('.mothership-action').first().click();
@@ -250,7 +312,7 @@ test.describe('applying damage to the targeted actor', () => {
   test('a hit that empties the bar rolls the weapon’s wound table, and costs one Wound', async ({
     gmPage,
   }) => {
-    const { shooter, victim } = await stage(gmPage, {
+    const { shooter, victim } = await aim(gmPage, {
       health: { value: 1, max: 10 },
       hits: { value: 0, max: 2 },
     });
@@ -289,7 +351,7 @@ test.describe('applying damage to the targeted actor', () => {
       await (window as any).game.settings.set('mothershiprpg', 'autoRollWoundsCharacters', false);
     });
     try {
-      const { shooter, victim } = await stage(gmPage, {
+      const { shooter, victim } = await aim(gmPage, {
         health: { value: 1, max: 10 },
         hits: { value: 0, max: 2 },
       });
@@ -321,7 +383,7 @@ test.describe('applying damage to the targeted actor', () => {
 
   // PSG 28 — the surplus carries into the refilled bar, and the Wound is what pays for it.
   test('a hit worth more than the bar spends a Wound and refills it', async ({ gmPage }) => {
-    const { shooter, victim } = await stage(gmPage, {
+    const { shooter, victim } = await aim(gmPage, {
       health: { value: 1, max: 10 },
       hits: { value: 0, max: 2 },
     });

@@ -80,8 +80,13 @@ pill — leaving one call site, the shared stat vocabulary.
   (`documents/`, `checks/`, `mutation/`, `rolls/`, `tables/`, `chat/`, `api/`, …). Nothing was
   translated file-by-file; there is no per-file `// @ts-check` migration. `module/ui/**` stays
   `.js`/`.svelte`, `checkJs: false`.
-- **Verify, don't eyeball.** Every change runs the tier that covers it (below). Don't report
-  work as done on an untested edit. If a green run surprises you, suspect the harness.
+- **Verify, don't eyeball — and pick the tier.** `npm test` and `npm run check` cost about three
+  seconds each: run both on every change. **The e2e suite is ~8 minutes and is not a per-change
+  tier.** While iterating, run only the spec that covers what you touched —
+  `npx playwright test <spec>`, 15–60s, and `test/e2e/README.md` maps source area to spec. The
+  whole suite is a gate before committing runtime behaviour, or when asked; not a reflex after
+  every edit. Don't report work as done on an untested edit. If a green run surprises you,
+  suspect the harness.
 
 ## Commands
 
@@ -91,9 +96,10 @@ npm run setup            # dev install: symlink scaffold (packs are COPIED — r
 npm run deploy           # release rehearsal: link-free copy, same shape as the zip
 ./scripts/packs.sh pack  # packs/_source/*.json → LevelDB (close Foundry first)
 npm run content -- --allocate  # content/books/** -> packs/_source/** (--allocate mints new ids)
-npm test                 # 701 vitest specs — the CI tier
-npm run check            # tsc over the .ts surface, then svelte-check over module/ui
-npm run test:e2e         # 124 Playwright specs vs a real headless Foundry
+npm test                 # 1048 vitest specs — the CI tier, ~3s
+npm run check            # tsc over the .ts surface, then svelte-check over module/ui, ~3s
+npx playwright test <spec>   # ONE e2e spec — the iterating tier, 15-60s
+npm run test:e2e         # all 173 Playwright specs vs a real headless Foundry — ~8min, a gate
 npm run design           # the design-system app on :30010 — tokens, and every component
 ```
 
