@@ -227,12 +227,16 @@ const EFFECT_PATTERN = new RegExp(`(${Object.keys(WOUND_EFFECTS).join('|')})\\s*
 
 const MODIFIERS: Readonly<Record<string, Advantage>> = { '+': 'advantage', '-': 'disadvantage' };
 
-/** Only a recognized wound-effect name becomes a table link; the rest of the field's text passes through unchanged. */
+/**
+ * Only a recognized wound-effect name becomes a link; the rest of the field's text passes through
+ * unchanged. `@Wound`, not `@Table` — a Wound is taken by whoever the card was aimed at, and
+ * `@Table` would roll it against whatever the clicker happened to have selected instead.
+ */
 export function woundEffectActions(effect: string): string {
   return String(effect ?? '').replace(EFFECT_PATTERN, (match, label: string, modifier?: string) => {
     const table = WOUND_EFFECTS[label.toLowerCase()];
     if (table === undefined) return match;
-    return formatAction({ verb: 'table', table, advantage: MODIFIERS[modifier ?? ''] ?? 'none' });
+    return formatAction({ verb: 'wound', table, advantage: MODIFIERS[modifier ?? ''] ?? 'none' });
   });
 }
 

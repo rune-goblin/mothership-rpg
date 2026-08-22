@@ -874,6 +874,7 @@
     "Other": "Other",
     "Oxygen": "Oxygen",
     "PanicCheck": "Panic Check",
+    "Patch": "Patch",
     "Pronouns": "Pronouns",
     "Quantity": "Quantity",
     "RadiationDamage": "Radiation Damage",
@@ -931,6 +932,7 @@
     "Total": "Total",
     "TraumaResponse": "Trauma Response",
     "Treatment": "Treatment",
+    "Trinket": "Trinket",
     "UsesAmmo": "Uses Ammo",
     "Value": "Value",
     "WeaponName": "Weapon Name",
@@ -1009,7 +1011,8 @@
       "NotYourTarget": "You do not have permission to spend that target's Health.",
       "WardenDidNotAnswer": "The Warden's client did not answer. Try again, or ask them to apply it.",
       "NotYourCard": "Only the player who made this roll, or the Warden, can roll its damage.",
-      "NoWoundTarget": "This card names no actor to roll a Wound against."
+      "NotYourWound": "Only the player who made this roll, or the Warden, can roll its Wound.",
+      "NoWoundTarget": "This card names nobody to roll a Wound against. Target a token before you roll."
     },
     "Chat": {
       "Success": "Success!",

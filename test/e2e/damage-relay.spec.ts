@@ -69,9 +69,9 @@ test.describe('the Warden’s client applies what a player may not', () => {
   });
 
   /** A gun the player owns, and a creature the Warden alone owns, standing on the canvas. */
-  async function arm(gmPage: Page): Promise<string> {
+  async function arm(gmPage: Page, woundEffect = ''): Promise<string> {
     return await gmPage.evaluate(
-      async ({ id, owner }: { id: string; owner: number }) => {
+      async ({ id, owner, woundEffect }: { id: string; owner: number; woundEffect: string }) => {
         const w = window as any;
 
         const shooter = await w.Actor.create({
@@ -81,7 +81,11 @@ test.describe('the Warden’s client applies what a player may not', () => {
           ownership: { [id]: owner },
         });
         await shooter.createEmbeddedDocuments('Item', [
-          { name: '__e2e_gun', type: 'weapon', system: { damage: '2d10', range: 'close', useAmmo: false } },
+          {
+            name: '__e2e_gun',
+            type: 'weapon',
+            system: { damage: '2d10', range: 'close', useAmmo: false, woundEffect },
+          },
         ]);
         await w.game.users.get(id).update({ character: shooter.id });
 
@@ -89,14 +93,14 @@ test.describe('the Warden’s client applies what a player may not', () => {
         const victim = await w.Actor.create({
           name: '__e2e_victim',
           type: 'creature',
-          system: { health: { value: 20, max: 20 } },
+          system: { health: { value: 20, max: 20 }, hits: { value: 0, max: 3 } },
         });
         const [token] = await w.canvas.scene.createEmbeddedDocuments('Token', [
           { name: '__e2e_victim', actorId: victim.id, x: 1000, y: 1000 },
         ]);
         return token.uuid as string;
       },
-      { id: playerId, owner: OWNERSHIP_OWNER },
+      { id: playerId, owner: OWNERSHIP_OWNER, woundEffect },
     );
   }
 
@@ -171,6 +175,31 @@ test.describe('the Warden’s client applies what a player may not', () => {
     );
 
     await expect.poll(() => tokenHealth(gmPage, token), { timeout: 20_000 }).toBe(20 - total);
+  });
+
+  /**
+   * The other half of a hit: rolling the Wound writes to whoever took it, so it goes the same way
+   * the damage did. A `@Table` here would have rolled against the shooter's own character instead.
+   */
+  test('a player’s Wound roll charges a creature only the Warden owns', async ({ gmPage }) => {
+    const token = await arm(gmPage, 'Gunshot');
+    const { message } = await playerFires(token);
+
+    await playerPage.locator(`[data-message-id="${message}"] .card-wound .mothership-action`).first().click();
+
+    await expect
+      .poll(
+        () =>
+          gmPage.evaluate(
+            async (uuid: string) => (await (window as any).fromUuid(uuid)).actor.toObject().system.hits.value,
+            token,
+          ),
+        { timeout: 20_000 },
+      )
+      .toBe(1);
+
+    // The roll and the row it landed on, in a card both clients can read.
+    await expect(gmPage.locator('#chat-notifications .chat-message').last()).toContainText('Gunshot Wound');
   });
 
   test('a request aimed somewhere the card never was is refused', async ({ gmPage }) => {

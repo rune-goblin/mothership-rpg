@@ -187,6 +187,19 @@ describe('the Wound a hit costs', () => {
     });
   });
 
+  // The offer is answered from the card, on the Warden's client — so the card has to say whose
+  // Wound it is, by the uuid the hit arrived at rather than the actor's own.
+  it('records whose Wound the offer is, and which table it rolls', async () => {
+    const chat = stubs({ autoRollWoundsCharacters: false });
+
+    await harmActor(wounded(), 9, GUNSHOT, 'Scene.s1.Token.t1');
+
+    expect(chat.cards.at(-1)?.data).toMatchObject({
+      subject: 'Scene.s1.Token.t1',
+      wound: { table: 'gunshot', advantage: 'none' },
+    });
+  });
+
   it('says nothing about wounds when the hit cost none', async () => {
     const chat = stubs({ autoRollWoundsCharacters: false });
 

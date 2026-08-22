@@ -51,11 +51,18 @@ export type HarmOutcome =
   | { readonly kind: 'absorbed'; readonly amount: 0 }
   | { readonly kind: 'forbidden' };
 
-/** A player may hold a card without holding what it was aimed at, so the target decides, not the card. */
+/**
+ * A player may hold a card without holding what it was aimed at, so the target decides, not the card.
+ *
+ * `subject` is the uuid this actor was found by — a token's, when a token was hit. The card it posts
+ * records it, so the Wound offer on that card can be answered from the card rather than from
+ * whatever the clicker has selected.
+ */
 export async function harmActor(
   actor: CheckActor,
   amount: number,
   wound: WoundRoll | null = null,
+  subject: string | null = null,
 ): Promise<HarmOutcome> {
   if (actor.isOwner === false) return { kind: 'forbidden' };
 
@@ -74,6 +81,8 @@ export async function harmActor(
       result,
       voice: voiceOfActor(actor),
       wound: wounded && !rolls ? woundOffer(wound) : '',
+      woundRoll: wounded && !rolls ? wound : null,
+      subject,
     }),
     { speaker: speakerOf(actor) },
   );
@@ -98,7 +107,7 @@ function appliedSoFar(data: Record<string, unknown>): Record<string, number> {
   return applied;
 }
 
-function storedTargets(data: Record<string, unknown>): CardTarget[] {
+export function storedTargets(data: Record<string, unknown>): CardTarget[] {
   const rows = Array.isArray(data.targets) ? data.targets : [];
   return rows.map((row) => {
     const target = fields(row);
@@ -198,7 +207,7 @@ function requested(total: number, half: boolean): number {
 }
 
 /** The wound the card recorded, read back the way every other field off the wire is: checked, not believed. */
-function cardWound(data: Record<string, unknown>): WoundRoll | null {
+export function cardWound(data: Record<string, unknown>): WoundRoll | null {
   const wound = fields(data.wound);
   const table = typeof wound.table === 'string' ? wound.table : '';
   const advantage = typeof wound.advantage === 'string' ? wound.advantage : 'none';
@@ -229,20 +238,34 @@ export async function harmFromCard(card: HarmCard, request: HarmRequest): Promis
   const actor = await targetActor(request.uuid);
   if (actor === null) return { kind: 'forbidden' };
 
-  const outcome = await harmActor(actor, requested(total, request.half), cardWound(remembered.data));
+  const outcome = await harmActor(
+    actor,
+    requested(total, request.half),
+    cardWound(remembered.data),
+    request.uuid,
+  );
   if (outcome.kind === 'forbidden') return outcome;
 
   await recordHarm(card.message, card.sender, request.uuid, outcome.amount);
   return outcome;
 }
 
+/** The uuid stays beside the actor it found: the card the hit posts records who was hit, not who they are. */
+export interface HarmTarget {
+  readonly uuid: string;
+  readonly actor: CheckActor;
+}
+
 /** Who a `@Harm` button is aimed at: its own row, or the clicker's live targets for a card with none. */
-export async function harmTargets(uuid: string | null, live: readonly CardTarget[]): Promise<CheckActor[]> {
+export async function harmTargets(
+  uuid: string | null,
+  live: readonly CardTarget[],
+): Promise<HarmTarget[]> {
   const uuids = uuid === null ? live.map((target) => target.uuid) : [uuid];
-  const actors: CheckActor[] = [];
+  const targets: HarmTarget[] = [];
   for (const each of uuids) {
     const actor = await targetActor(each);
-    if (actor !== null) actors.push(actor);
+    if (actor !== null) targets.push({ uuid: each, actor });
   }
-  return actors;
+  return targets;
 }

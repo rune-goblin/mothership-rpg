@@ -49,6 +49,10 @@ export class MothershipCharacterModel extends foundry.abstract.TypeDataModel {
       class: new fields.SchemaField({ value: str('') }),
       pronouns: new fields.SchemaField({ value: str('') }),
       credits: new fields.SchemaField({ value: str('') }),
+      // PSG 8-9: both tables print prose, never a document, so the text itself is the record —
+      // there is no item for a rolled patch or trinket to arrive as.
+      patch: new fields.SchemaField({ value: str('') }),
+      trinket: new fields.SchemaField({ value: str('') }),
       attributes: new fields.SchemaField({ level: new fields.SchemaField({ value: num(0) }) }),
       stats: new fields.SchemaField({
         strength: stat(10, 'Strength', 'Strength Check', { mod: true }),

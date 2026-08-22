@@ -58,6 +58,13 @@
     { name: 'system.attributes.level.value', label: 'Mothership.HighScore' },
   ];
 
+  // Half a row each: both tables print a sentence rather than a word, so a quarter-width box
+  // reads a patch as its first two syllables.
+  const FLAVOUR = [
+    { name: 'system.patch.value', label: 'Mothership.Patch' },
+    { name: 'system.trinket.value', label: 'Mothership.Trinket' },
+  ];
+
   const STATS = [
     { key: 'strength', label: 'Mothership.Strength' },
     { key: 'speed', label: 'Mothership.Speed' },
@@ -119,17 +126,11 @@
         </div>
 
         {#each IDENTITY as field (field.name)}
-          <div>
-            <div class="headerinputtext">{localize(field.label)}</div>
-            <div class="headerinputfield">
-              <input
-                name={field.name}
-                class="noborder"
-                type="text"
-                value={at(field.name)}
-              />
-            </div>
-          </div>
+          {@render identityField(field)}
+        {/each}
+
+        {#each FLAVOUR as field (field.name)}
+          <div class="headerwide">{@render identityField(field)}</div>
         {/each}
       </div>
     </div>
@@ -182,6 +183,15 @@
     </div>
   </div>
 </header>
+
+{#snippet identityField(field)}
+  <div>
+    <div class="headerinputtext">{localize(field.label)}</div>
+    <div class="headerinputfield">
+      <input name={field.name} class="noborder" type="text" value={at(field.name)} />
+    </div>
+  </div>
+{/snippet}
 
 {#snippet checkStat(stat)}
   {@const pod = system.stats[stat.key]}
@@ -659,6 +669,10 @@
 
     .headernamegrid {
       grid-column: 1/-2;
+    }
+
+    .headerwide {
+      grid-column: span 2;
     }
 
     /* Below the width the four columns need -- their own widths plus three floor gutters and the

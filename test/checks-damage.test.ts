@@ -275,11 +275,11 @@ describe('the wound roll a hit leads to', () => {
 
 describe('the wound a weapon names', () => {
   it('becomes the table action for that wound', () => {
-    expect(woundEffectActions('Gunshot')).toBe('@Table[gunshot]');
-    expect(woundEffectActions('Bleeding [+]')).toBe('@Table[bleeding +]');
-    expect(woundEffectActions('Fire & Explosives [-]')).toBe('@Table[fire-explosives -]');
-    expect(woundEffectActions('Gore & Massive')).toBe('@Table[gore-massive]');
-    expect(woundEffectActions('Blunt Force [+] Gunshot')).toBe('@Table[blunt-force +] @Table[gunshot]');
+    expect(woundEffectActions('Gunshot')).toBe('@Wound[gunshot]');
+    expect(woundEffectActions('Bleeding [+]')).toBe('@Wound[bleeding +]');
+    expect(woundEffectActions('Fire & Explosives [-]')).toBe('@Wound[fire-explosives -]');
+    expect(woundEffectActions('Gore & Massive')).toBe('@Wound[gore-massive]');
+    expect(woundEffectActions('Blunt Force [+] Gunshot')).toBe('@Wound[blunt-force +] @Wound[gunshot]');
   });
 
   it('leaves text naming no table as the text it is', () => {
@@ -300,7 +300,7 @@ describe('the damage card', () => {
     expect(chat.cards[0].data).toMatchObject({
       showCheck: false,
       msgHeader: 'Revolver',
-      woundEffect: '@Table[gunshot]',
+      woundEffect: '@Wound[gunshot]',
     });
     expect(chat.cards[0].data.flavorText).toContain('You inflict <strong>6</strong> points of damage.');
   });

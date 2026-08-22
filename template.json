@@ -46,6 +46,12 @@
       "credits": {
         "value": ""
       },
+      "patch": {
+        "value": ""
+      },
+      "trinket": {
+        "value": ""
+      },
       "attributes": {
         "level": {
           "value": 0

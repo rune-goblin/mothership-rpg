@@ -4,6 +4,7 @@ import { registerChatAction } from '../chat/actions.ts';
 import { registerCheckActions } from '../checks/actions.ts';
 import { rollDamageInCard } from '../checks/damage.ts';
 import { harmActor, harmFromCard, harmTargets, isHarmRequest, retargetCard, type HarmOutcome } from '../checks/harm.ts';
+import { isWoundRequest, woundFromCard, type WoundOutcome } from '../checks/wound.ts';
 import { dispatch, initDispatch, registerDispatch } from '../dispatch/dispatch.ts';
 import { currentTargets } from '../checks/targets.ts';
 import { harmAmount } from '../chat/enrichers.ts';
@@ -228,13 +229,19 @@ function cardMessage(button: Element | null): CardMessage | undefined {
 
 /** This client's own hands: whatever it may write to, it writes to directly. */
 async function harmHere(amount: number, uuid: string | null): Promise<void> {
-  const actors = await harmTargets(uuid, currentTargets());
-  if (actors.length === 0) return warn('Mothership.Errors.NoHarmTarget');
+  const targets = await harmTargets(uuid, currentTargets());
+  if (targets.length === 0) return warn('Mothership.Errors.NoHarmTarget');
 
-  for (const actor of actors) {
-    const outcome = await harmActor(actor, amount);
+  for (const target of targets) {
+    const outcome = await harmActor(target.actor, amount, null, target.uuid);
     if (outcome.kind === 'forbidden') warn('Mothership.Errors.NotYourTarget');
   }
+}
+
+/** `rolled` says nothing; the table card it posted is the answer. */
+function woundWarning(outcome: WoundOutcome | undefined): void {
+  if (outcome?.kind === 'forbidden') warn('Mothership.Errors.NotYourWound');
+  if (outcome?.kind === 'unaimed') warn('Mothership.Errors.NoWoundTarget');
 }
 
 export function registerActions(): void {
@@ -247,6 +254,15 @@ export function registerActions(): void {
     const message = game?.messages?.get(data.messageId);
     if (message === undefined) throw new Error('no such card');
     return await harmFromCard({ message, sender: game?.users?.get(senderId) }, data);
+  });
+
+  // The Wound a card led to, rolled by the Warden: charging one is a write to whoever was hit, and
+  // the player who landed the hit does not own them.
+  registerDispatch('wound', async (data, senderId) => {
+    if (!isWoundRequest(data)) throw new Error('not a wound request');
+    const message = game?.messages?.get(data.messageId);
+    if (message === undefined) throw new Error('no such card');
+    return await woundFromCard({ message, sender: game?.users?.get(senderId) }, data);
   });
 
   registerChatAction('harm', async (action, context) => {
@@ -289,18 +305,35 @@ export function registerActions(): void {
   });
 
   /**
-   * Not a `@Table`: this rolls against the actor whose card it sits in — the one that took the
-   * Wound — rather than whoever clicks it. That is the whole point of the verb, and it is what
-   * lets a player roll the wound they just dealt a creature.
+   * Not a `@Table`: this rolls against whoever the card was aimed at, rather than whoever clicks it.
+   * That is the whole point of the verb — a `@Table` would find the clicker's own character, roll
+   * the wrong actor's Wound and, on an actor they do not own, fail on the write.
    */
   registerChatAction('wound', async (action, context) => {
     debug('action', `wound ${action.table}`);
 
-    const { actor } = cardOrigin(context.button);
-    if (actor === null) return warn('Mothership.Errors.NoWoundTarget');
+    const messageId = cardOrigin(context.button).messageId;
+    if (messageId === null) return warn('Mothership.Errors.NoWoundTarget');
 
-    // The Wound was spent by the hit this card reports; the roll that follows charges nothing.
-    await actor.rollTable(action.table, { advantage: action.advantage, costsWound: false });
+    const request = {
+      messageId,
+      uuid: rowTarget(context.button),
+      table: action.table,
+      advantage: action.advantage,
+    };
+    const sent = await dispatch<WoundOutcome>('wound', request);
+
+    // Nobody to ask: the same verified path here, which succeeds only if this client may write to
+    // what the card names.
+    if (sent.kind === 'no-gm') {
+      const message = cardMessage(context.button);
+      if (message === undefined) return warn('Mothership.Errors.NoWoundTarget');
+      return woundWarning(await woundFromCard({ message, sender: game?.user }, request));
+    }
+
+    if (sent.kind === 'timeout') return warn('Mothership.Errors.WardenDidNotAnswer');
+    if (sent.kind === 'failed') return warn('Mothership.Errors.NotYourWound');
+    woundWarning(sent.result);
   });
 
   registerChatAction('apply', async (action) => {

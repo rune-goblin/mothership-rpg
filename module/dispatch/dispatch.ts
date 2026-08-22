@@ -18,7 +18,7 @@ const CHANNEL = `system.${SYSTEM_ID}`;
 /** Long enough to cover a GM client busy with a scene load, short enough that a button un-sticks. */
 const TIMEOUT_MS = 10_000;
 
-export type DispatchAction = 'harm';
+export type DispatchAction = 'harm' | 'wound';
 
 export type DispatchHandler = (data: unknown, senderId: string) => Promise<unknown>;
 

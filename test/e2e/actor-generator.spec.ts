@@ -425,6 +425,10 @@ test.describe('character generator', () => {
     expect(await stored(gmPage, uuid, 'system.class.value')).toBe('Marine');
     expect(await stored(gmPage, uuid, 'system.other.stressdesc.value')).toMatch(/\S/);
 
+    // Neither table hands out a document, so the run keeps both rows as the text they printed.
+    expect(await stored(gmPage, uuid, 'system.patch.value')).toMatch(/\S/);
+    expect(await stored(gmPage, uuid, 'system.trinket.value')).toMatch(/\S/);
+
     // PSG step 9 asks for the pronouns beside the name, so the last pane collects both.
     expect(await stored(gmPage, uuid, 'system.pronouns.value')).toBe('they/them');
 

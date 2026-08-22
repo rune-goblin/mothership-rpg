@@ -77,6 +77,23 @@ test.describe('character sheet', () => {
     await expect(sheet.locator('input[name="system.attributes.level.value"]')).toHaveValue('3');
   });
 
+  // Neither table hands out a document, so the header is the only place either roll survives.
+  test('the patch and the trinket read back, and persist', async ({ gmPage }) => {
+    const { appId, uuid } = await open(gmPage, {
+      patch: { value: '"LONER"' },
+      trinket: { value: 'Bone Knife' },
+    });
+    const sheet = gmPage.locator(`#${appId}`);
+
+    await expect(sheet.locator('input[name="system.patch.value"]')).toHaveValue('"LONER"');
+    await expect(sheet.locator('input[name="system.trinket.value"]')).toHaveValue('Bone Knife');
+
+    const trinket = sheet.locator('input[name="system.trinket.value"]');
+    await trinket.fill('Snake Whiskey');
+    await trinket.blur();
+    await expect.poll(() => stored(gmPage, uuid, 'system.trinket.value')).toBe('Snake Whiskey');
+  });
+
   test('shows all four stats and all three saves, each with its bonus', async ({ gmPage }) => {
     const { appId } = await open(gmPage, {
       stats: {

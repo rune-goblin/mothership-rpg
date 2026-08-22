@@ -21,22 +21,8 @@ elif [ ! -f "$TEST_DATA/Config/options.json" ]; then
     exit 1
 fi
 
-if [ -z "${FOUNDRY_APP:-}" ]; then
-    for candidate in \
-        "/Applications/Foundry Virtual Tabletop.app/Contents/Resources/app" \
-        "/Applications/Foundry Virtual Tabletop v${FOUNDRY_VERSION}.app/Contents/Resources/app"; do
-        if [ -f "$candidate/main.js" ]; then
-            FOUNDRY_APP="$candidate"
-            break
-        fi
-    done
-fi
-
-if [ -z "${FOUNDRY_APP:-}" ] || [ ! -f "$FOUNDRY_APP/main.js" ]; then
-    echo "❌ Foundry app not found. Set FOUNDRY_APP to the dir containing main.js"
-    echo "   (e.g. '/Applications/Foundry Virtual Tabletop.app/Contents/Resources/app')."
-    exit 1
-fi
+# shellcheck source=scripts/foundry-app.sh
+source "$REPO_ROOT/scripts/foundry-app.sh"
 
 # Foundry locks its data directory and releases the lock only on a clean exit. Anything that
 # kills it — `kill -9`, a Playwright teardown, ^C at the wrong moment — leaves the lock behind,

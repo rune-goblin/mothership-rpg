@@ -480,6 +480,25 @@ describe('the portrait and the two longform fields', () => {
     ]);
   });
 
+  // Neither table links a document, so a run that dropped the text kept nothing of either roll.
+  it('keeps the patch and the trinket as the text the table printed', async () => {
+    const { written } = await applied((draft) => {
+      const rolls = draft as unknown as { patch: unknown; trinket: unknown };
+      rolls.patch = { roll: 21, text: '"Front Towards Enemy" (Claymore Mine)', entries: [] };
+      rolls.trinket = { roll: 5, text: 'Necklace of Shell Casings', entries: [] };
+    });
+
+    expect(written['system.patch.value']).toBe('"Front Towards Enemy" (Claymore Mine)');
+    expect(written['system.trinket.value']).toBe('Necklace of Shell Casings');
+  });
+
+  it('leaves an unrolled patch alone rather than blanking it', async () => {
+    const { written } = await applied(() => {});
+
+    expect(written).not.toHaveProperty('system.patch.value');
+    expect(written).not.toHaveProperty('system.trinket.value');
+  });
+
   // A loadout that does name it takes the row's own count rather than one more on top.
   it('grants one Unarmed, whatever the row says', async () => {
     const { granted } = await applied((draft) => {

@@ -448,7 +448,7 @@ describe('an attack', () => {
 
     expect(cardData()).toMatchObject({
       msgHeader: 'Revolver',
-      woundEffect: '@Table[gunshot]',
+      woundEffect: '@Wound[gunshot]',
       needsDesc: true,
     });
     expect(cardData().flavorText).toContain('You inflict <strong>20</strong> points of damage.');

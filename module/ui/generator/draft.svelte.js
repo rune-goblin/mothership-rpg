@@ -569,6 +569,11 @@ export class CharacterDraft {
       update['system.health.max'] = this.total('health');
     }
     if (this.rolled.credits !== null) update['system.credits.value'] = String(this.rolled.credits);
+    // Both tables print prose, so the row itself is what the character keeps; the entries below
+    // only cover a row that also happens to link an item.
+    for (const kind of ['patch', 'trinket']) {
+      if (this[kind]?.text) update[`system.${kind}.value`] = this[kind].text;
+    }
     if (this.name) update.name = this.name;
     if (this.pronouns) update['system.pronouns.value'] = this.pronouns;
     if (this.portraitSrc) update.img = this.portraitSrc;

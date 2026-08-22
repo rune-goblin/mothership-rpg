@@ -166,6 +166,8 @@ export const character = document({
     class: { value: 'Teamster' },
     pronouns: { value: 'they/them' },
     credits: { value: '2,450' },
+    patch: { value: '"Front Towards Enemy" (Claymore Mine)' },
+    trinket: { value: 'Necklace of Shell Casings' },
     health: { value: 14, max: 20 },
     hits: { value: 1, max: 3 },
     netHP: { value: 34, max: 40 },

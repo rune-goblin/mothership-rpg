@@ -428,6 +428,10 @@ export interface MutationCardInput {
   readonly rollOutcome?: Outcome | null;
   /** `@Wound[…]` actions for a Wound this change cost, when the table is not rolling itself. */
   readonly wound?: string;
+  /** The same offer as data: a click on it is answered from the card, never from the request. */
+  readonly woundRoll?: CardWound | null;
+  /** Whose Wound it is. The uuid the card recorded, not the actor's own — a token is who was hit. */
+  readonly subject?: string | null;
 }
 
 /**
@@ -498,6 +502,8 @@ export function mutationCard(input: MutationCardInput): Card<object> {
       parsedRollResult:
         spec === null || rollOutcome === null ? null : rolled(rollOutcome, { spec, comparison: null }),
       woundActions: input.wound ?? '',
+      wound: input.woundRoll ?? null,
+      subject: input.subject ?? null,
     },
   };
 }
@@ -629,12 +635,19 @@ export interface CardMessage {
   update(data: object): Promise<unknown>;
 }
 
+/**
+ * The kinds that keep their own data on the message. A card is remembered when a button inside it
+ * has to be answered from the card rather than from whoever clicked: the check card holds the
+ * damage and who it was aimed at, the mutation card holds the Wound it cost and whose it is.
+ */
+const REMEMBERED: ReadonlySet<CardKind> = new Set<CardKind>(['check', 'mutation']);
+
 /** The card behind a message, when this system put one there — the data a button needs to rebuild it. */
 export function rememberedCard(message: CardMessage): Card<Record<string, unknown>> | null {
   const stored = message.getFlag(SYSTEM_ID, CARD_FLAG);
   if (typeof stored !== 'object' || stored === null) return null;
   const card = stored as { kind?: unknown; data?: unknown };
-  return card.kind === 'check' && typeof card.data === 'object' && card.data !== null
+  return REMEMBERED.has(card.kind as CardKind) && typeof card.data === 'object' && card.data !== null
     ? (card as Card<Record<string, unknown>>)
     : null;
 }
@@ -646,7 +659,7 @@ export function ownsCard(message: CardMessage, user: unknown): boolean {
 
 /** Rewriting a card re-renders its template, and the rendered HTML has thrown away the data that built it. */
 function remembered<D extends object>(card: Card<D>): object {
-  return card.kind === 'check' ? { flags: { [SYSTEM_ID]: { [CARD_FLAG]: card } } } : {};
+  return REMEMBERED.has(card.kind) ? { flags: { [SYSTEM_ID]: { [CARD_FLAG]: card } } } : {};
 }
 
 /**
