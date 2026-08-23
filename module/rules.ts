@@ -61,6 +61,25 @@ export function isSkillRank(stored: string): boolean {
 /** Carry capacity is Strength over this, rounded up; unarmed damage is the same quotient rounded down. */
 export const STR_CAPACITY_DIVISOR = 10;
 
+// `none` is a value, not a blank, so a rangeless weapon (e.g. Ammo) has no unset state to
+// reason about.
+export const WEAPON_RANGES = ['none', 'adjacent', 'close', 'long', 'extreme'] as const;
+
+/** The stats/saves plus `restSave` and `panicCheck`, the flat key space `rollCheck` dispatches on. */
+export const ROLL_SCOPES = [
+  'strength',
+  'speed',
+  'intellect',
+  'combat',
+  'sanity',
+  'fear',
+  'body',
+  'restSave',
+  'panicCheck',
+] as const;
+
+export const ROLL_MODIFIERS = ['advantage', 'disadvantage'] as const;
+
 export type Cover = 'none' | 'insignificant' | 'light' | 'heavy';
 
 export interface CoverBonus {

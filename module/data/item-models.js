@@ -1,3 +1,5 @@
+import { ROLL_MODIFIERS, ROLL_SCOPES, WEAPON_RANGES } from '../rules.ts';
+
 const { fields } = foundry.data;
 
 const num = (initial, integer = false) =>
@@ -9,26 +11,6 @@ const bool = (initial = false) => new fields.BooleanField({ required: true, init
 
 const uuidList = () => new fields.ArrayField(new fields.StringField());
 
-// `none` is a value, not a blank, so a rangeless weapon (e.g. Ammo) has no unset state to
-// reason about.
-export const WEAPON_RANGES = ['none', 'adjacent', 'close', 'long', 'extreme'];
-
-// The stats/saves plus `restSave` and `panicCheck`, the flat key space `rollCheck` dispatches on.
-export const ROLL_SCOPES = [
-  'strength',
-  'speed',
-  'intellect',
-  'combat',
-  'sanity',
-  'fear',
-  'body',
-  'restSave',
-  'panicCheck',
-];
-
-export const ROLL_MODIFIERS = ['advantage', 'disadvantage'];
-
-// A *_full_set pick is one skill plus its prerequisite chain, a different dialog, hence its own key.
 const picks = () => ({
   trained: num(0),
   expert: num(0),

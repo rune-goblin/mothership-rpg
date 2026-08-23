@@ -5,7 +5,7 @@ import type { PodLeaf } from '../mutation/address.ts';
 import { isTableKey, isWoundTable, type TableKey } from '../tables/tables.ts';
 import type { Advantage } from '../rolls/spec.ts';
 
-/** Must match `module/data/item-models.js`'s `ROLL_SCOPES`; `test/chat-enrichers.test.ts` pins the two lists together. */
+/** Must match `module/rules.ts`'s `ROLL_SCOPES`; `test/chat-enrichers.test.ts` pins the two lists together. */
 export const CHECK_SCOPES = [
   'strength',
   'speed',

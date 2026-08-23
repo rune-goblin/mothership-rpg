@@ -7,8 +7,10 @@
     rows,
     enforceLabel = '',
     createLabel = '',
-    /** Writes a new world document of this type and opens its sheet. Null draws no Create. */
+    /** Opens the new-item form; answers with the document it wrote, or null. Null draws no Create. */
     oncreate = null,
+    /** Finishes this dialog without answering it — svelte-dialog hands it in. */
+    close = null,
     /** Rebuilds the rows from the world. Null leaves the list as it was handed over. */
     reload = null,
     value,
@@ -20,8 +22,8 @@
   // svelte-ignore state_referenced_locally
   let enforce = $state(enforceLabel !== '');
 
-  // The world half of the list is live: Create opens the new document's sheet, and its row has to
-  // follow whatever name is typed in there — and disappear if the document is deleted.
+  // The world half of the list is live: a document created elsewhere has to arrive here, and one
+  // deleted elsewhere has to leave.
   $effect(() => {
     const hooks = globalThis.Hooks;
     if (reload === null || hooks === undefined) return;
@@ -66,13 +68,15 @@
     </label>
   {/if}
   {#if oncreate !== null}
-    <!-- `type="button"`, or it submits the dialog's form and answers it. The frame goes with the
-         call so the sheet it opens can stand beside this window rather than on top of it. -->
+    <!-- `type="button"`, or it submits the dialog's form and answers it — and this control must
+         leave the picker standing while the form is open, then take it down once one is written. -->
     <button
       type="button"
       id="pick-create"
       class="pick-create"
-      onclick={(event) => oncreate(event.currentTarget.closest('dialog'))}
+      onclick={async () => {
+        if ((await oncreate()) !== null) close?.();
+      }}
     >
       <i class="fas fa-plus" aria-hidden="true"></i>{createLabel}
     </button>

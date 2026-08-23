@@ -840,9 +840,9 @@
 
   /* Dialog V2 shell tier: keyed on the class svelte-dialog.ts puts on the frame. The chrome
      selectors (.window-header, .window-content, .form-footer button, …) match elements Foundry
-     renders, which no <style> block can reach. The body vocabulary is down to macro_window and
-     macro_desc, which the two windows under module/ui/ that have not moved to ChoiceList still
-     write — every other dialog body draws its list from ChoiceList, which owns its own styles. */
+     renders, which no <style> block can reach. The body vocabulary is down to macro_desc, written
+     by module/ui/class/StatOption.svelte alone — every other dialog body draws its rows from
+     ChoiceList or owns its styles in a scoped block. */
   .mothership.application.dialog.macro-popup-dialog {
   	background: var(--surface-neutral-paper);
   	font-family: "Barlow", sans-serif;
@@ -867,12 +867,6 @@
   /* MPD window content */
   .mothership.macro-popup-dialog .window-content {
     padding: var(--space-10);
-  }
-
-  /* MPD macro window */
-  .mothership.macro-popup-dialog .macro_window {
-    background: var(--color-neutral-200);
-    border-radius: var(--radius-md);
   }
 
   /* MPD macro desc */

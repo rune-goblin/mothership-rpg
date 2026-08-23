@@ -21,7 +21,7 @@ import { clearFoundryStubs, installI18n } from './foundry-stubs.ts';
 import { installFoundryFieldStubs } from '../scripts/model-schema.ts';
 
 installFoundryFieldStubs();
-const { ROLL_SCOPES } = (await import('../module/data/item-models.js')) as { ROLL_SCOPES: string[] };
+const { ROLL_SCOPES } = await import('../module/rules.ts');
 
 afterEach(clearFoundryStubs);
 

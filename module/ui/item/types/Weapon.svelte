@@ -2,7 +2,7 @@
   import Field from '../../parts/Field.svelte';
   import CheckField from '../../parts/CheckField.svelte';
   import { localize } from '../../../i18n.ts';
-  import { WEAPON_RANGES } from '../../../data/item-models.js';
+  import { WEAPON_RANGES } from '../../../rules.ts';
 
   const WOUND_ROLLS = [
     'Bleeding', 'Bleeding [-]', 'Bleeding [+]',

@@ -389,9 +389,9 @@ test.describe('character sheet', () => {
     ).toBe(0);
   });
 
-  // Create is a body control, not a footer button: the dialog stays open so the document it just
-  // wrote can be edited and then picked out of the list it joined.
-  test('the picker creates a world document, and lists it live beneath the pack', async ({
+  // Create is a body control, not a footer button: a footer button would answer the picker, and
+  // the form has to open over a picker that is still standing until the draft is written.
+  test('the picker opens a new-weapon form, and Save to World files it without arming the actor', async ({
     gmPage,
   }) => {
     const clearWorld = () =>
@@ -410,35 +410,91 @@ test.describe('character sheet', () => {
     await sheet.locator('a.tab-select[data-tab="weapons"]').click();
     await sheet.locator('.item-header a.item-control').click();
 
-    const picker = gmPage.locator('.macro-popup-dialog');
+    const picker = gmPage.locator('.macro-popup-dialog').first();
     await expect(picker.locator('.choice-group')).toHaveCount(0);
 
     await picker.locator('#pick-create').click();
 
-    await expect(picker.locator('.choice-group')).toHaveText('From this world');
-    await expect(picker.locator('[data-choice^="Item."]')).toHaveCount(1);
-    await expect(gmPage.locator('.application.sheet').filter({ hasText: 'New Weapon' })).toBeVisible();
+    const form = gmPage.locator('.macro-popup-dialog').nth(1);
+    await expect(form.locator('input[name="name"]')).toHaveValue('New Weapon');
 
-    // The row follows the name typed into the sheet, without the picker being reopened.
-    await gmPage.evaluate(async () => {
-      const doc = (window as any).game.items.find((i: any) => i.name === 'New Weapon');
-      await doc.update({ name: '__e2e_Bolt Thrower', 'system.damage': '2d10' });
-    });
-    await expect(picker.locator('[data-choice^="Item."] .choice-name')).toHaveText('__e2e_Bolt Thrower');
+    // Nothing is written until a button is pressed — Cancel leaves the world as it found it.
+    await form.locator('button[data-action="cancel"]').click();
+    expect(
+      await gmPage.evaluate(() =>
+        (window as any).game.items.filter((i: any) => i.name === 'New Weapon').length,
+      ),
+    ).toBe(0);
+    await expect(picker).toBeVisible();
 
-    await gmPage.evaluate(async () => {
-      for (const doc of (window as any).game.items) await doc.sheet?.close();
-    });
-    await picker.locator('[data-choice^="Item."]').click();
-    await picker.locator('button[data-action="add"]').click();
+    await picker.locator('#pick-create').click();
+    const second = gmPage.locator('.macro-popup-dialog').nth(1);
+    await second.locator('input[name="name"]').fill('__e2e_Bolt Thrower');
+    await second.locator('input[name="system.damage"]').fill('2d10');
+    await second.locator('button[data-action="world"]').click();
 
-    await expect.poll(() =>
-      gmPage.evaluate(
-        async (u: string) =>
-          (await (window as any).fromUuid(u)).items.map((i: any) => [i.type, i.name]),
+    // Save to World writes the document and takes the picker down; the actor gains nothing.
+    await expect(picker).toBeHidden();
+    await expect
+      .poll(() =>
+        gmPage.evaluate(() =>
+          (window as any).game.items
+            .filter((i: any) => i.name === '__e2e_Bolt Thrower')
+            .map((i: any) => [i.type, i.system.damage]),
+        ),
+      )
+      .toEqual([['weapon', '2d10']]);
+    expect(
+      await gmPage.evaluate(
+        async (u: string) => (await (window as any).fromUuid(u)).items.size,
         uuid,
       ),
-    ).toEqual([['weapon', '__e2e_Bolt Thrower']]);
+    ).toBe(0);
+
+    await clearWorld();
+  });
+
+  test('Add to Character files the draft in the world and arms the actor with a copy', async ({
+    gmPage,
+  }) => {
+    const clearWorld = () =>
+      gmPage.evaluate(async () => {
+        const g = (window as any).game;
+        const ids = g.items
+          .filter((i: any) => i.name.startsWith('New ') || i.name.startsWith('__e2e_'))
+          .map((i: any) => i.id);
+        if (ids.length) await g.items.documentClass.deleteDocuments(ids);
+      });
+
+    await clearWorld();
+    const { appId, uuid } = await open(gmPage);
+    const sheet = gmPage.locator(`#${appId}`);
+
+    await sheet.locator('a.tab-select[data-tab="weapons"]').click();
+    await sheet.locator('.item-header a.item-control').click();
+
+    const picker = gmPage.locator('.macro-popup-dialog').first();
+    await picker.locator('#pick-create').click();
+
+    const form = gmPage.locator('.macro-popup-dialog').nth(1);
+    await form.locator('input[name="name"]').fill('__e2e_Rivet Gun');
+    await form.locator('button[data-action="add"]').click();
+
+    await expect(picker).toBeHidden();
+    await expect
+      .poll(() =>
+        gmPage.evaluate(
+          async (u: string) =>
+            (await (window as any).fromUuid(u)).items.map((i: any) => [i.type, i.name]),
+          uuid,
+        ),
+      )
+      .toEqual([['weapon', '__e2e_Rivet Gun']]);
+    expect(
+      await gmPage.evaluate(() =>
+        (window as any).game.items.filter((i: any) => i.name === '__e2e_Rivet Gun').length,
+      ),
+    ).toBe(1);
 
     await clearWorld();
   });

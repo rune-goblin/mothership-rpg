@@ -32,6 +32,7 @@ export interface SvelteDialogOptions<V, T, P extends object> {
 
 interface DialogInstance {
   readonly element: { querySelector(selector: string): Element | null };
+  close(): unknown;
 }
 
 interface DialogV2Button {
@@ -101,6 +102,9 @@ export async function svelteDialog<V, T, P extends object>(
         component: options.component,
         props: options.props,
         initial: value,
+        // A body control that finishes the dialog rather than answering it: closing resolves
+        // `wait` with null, the same as a dismissal.
+        close: () => void dialog.close(),
         report: (next: V) => {
           value = next;
         },

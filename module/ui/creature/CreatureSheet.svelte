@@ -10,7 +10,7 @@
   import HealthBlock from '../parts/sections/HealthBlock.svelte';
   import { onActivate } from '../parts/activate.js';
   import { localize } from '../../i18n.ts';
-  import { createItem, deleteItem, editItem, promptAddItem } from '../actor/items.js';
+  import { deleteItem, editItem, promptAddItem, promptNewItem } from '../actor/items.js';
 
   let { store } = $props();
 
@@ -226,7 +226,7 @@
     icon="plus"
     label={localize('Mothership.Add')}
     title={localize('Mothership.CreateAbility')}
-    onclick={() => createItem(actor, 'ability')}
+    onclick={() => promptNewItem(actor, 'ability')}
   />
 {/snippet}
 

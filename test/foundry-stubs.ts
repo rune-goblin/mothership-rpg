@@ -158,7 +158,7 @@ export function installDialogV2(): OpenDialog[] {
           const element = document.createElement('div');
           element.innerHTML = config.content;
           document.body.append(element);
-          const dialog = { element };
+          const dialog = { element, close: () => finish(undefined) };
 
           const finish = (result: unknown): void => {
             const closed = config.close?.({}, dialog);
@@ -187,6 +187,36 @@ export function installDialogV2(): OpenDialog[] {
   };
 
   return opened;
+}
+
+/**
+ * What an item sheet body needs to render outside Foundry: the enricher, the `<prose-mirror>`
+ * element, and the DataModel defaults a draft opens on. `defaults` is keyed by item type.
+ */
+export function installItemForms(defaults: Record<string, object> = {}): void {
+  const applications = branch(foundryStub(), 'applications');
+  branch(applications, 'ux').TextEditor = {
+    implementation: { enrichHTML: async (html: string) => html },
+  };
+  branch(applications, 'elements').HTMLProseMirrorElement = {
+    create: ({ name, value }: { name: string; value: string }) => {
+      const element = document.createElement('div');
+      element.setAttribute('name', name);
+      Object.defineProperty(element, 'value', { get: () => value });
+      return element;
+    },
+  };
+
+  branch(branch(globalThis as Globals, 'CONFIG'), 'Item').dataModels = Object.fromEntries(
+    Object.entries(defaults).map(([type, system]) => [
+      type,
+      class {
+        toObject(): object {
+          return structuredClone(system);
+        }
+      },
+    ]),
+  );
 }
 
 export function installPacks(packs: Record<string, readonly object[]>): void {
@@ -223,8 +253,9 @@ export function installWorldItems(initial: readonly Record<string, unknown>[] = 
         uuid: `Item.world-${docs.length}`,
         name: data.name,
         type: data.type,
-        system: {},
-        toObject: () => ({ name: data.name, type: data.type, system: {} }),
+        img: data.img,
+        system: data.system ?? {},
+        toObject: () => structuredClone(data),
         sheet: { render: () => log.rendered.push(`Item.world-${docs.length - 1}`) },
       };
       docs.push(doc as unknown as Record<string, unknown>);

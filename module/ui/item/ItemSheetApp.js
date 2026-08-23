@@ -1,5 +1,6 @@
 import { mount, unmount } from 'svelte';
 import ItemSheet from './ItemSheet.svelte';
+import { itemContext } from './forms.js';
 import { createDocumentStore } from '../document-store.svelte.js';
 
 const { DocumentSheetV2 } = foundry.applications.api;
@@ -29,15 +30,8 @@ export class MothershipItemSheet extends DocumentSheetV2 {
   #root;
   #store;
 
-  async _context() {
-    const { TextEditor } = foundry.applications.ux;
-    return {
-      enriched: {
-        description: await TextEditor.implementation.enrichHTML(this.document.system.description ?? '', {
-          relativeTo: this.document,
-        }),
-      },
-    };
+  _context() {
+    return itemContext(this.document);
   }
 
   /** Mount once; re-render refreshes the store instead, so Svelte state isn't discarded. */

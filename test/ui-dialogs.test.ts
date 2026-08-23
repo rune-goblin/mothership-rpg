@@ -1,12 +1,13 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { promptAddItem, promptNewSkill } from '../module/ui/actor/items.js';
+import { promptAddItem, promptNewItem } from '../module/ui/actor/items.js';
 import { promptStatOption } from '../module/ui/class/stat-option.js';
 import {
   clearFoundryStubs,
   installDialogV2,
   installI18n,
+  installItemForms,
   installNotifications,
   installPacks,
   installWorldItems,
@@ -25,6 +26,7 @@ beforeEach(() => {
     'Mothership.SkillRankExpert': 'Expert',
     'Mothership.classNewStatOptionEmptyError': 'You must select at least two stat or saves',
     'Mothership.NewSkill': 'New Skill',
+    'Mothership.NewArmor': 'New Armor',
   });
   notifications = installNotifications();
   opened = installDialogV2();
@@ -39,6 +41,13 @@ const only = (): OpenDialog => {
   expect(opened).toHaveLength(1);
   return opened[0];
 };
+
+/** The new-item form opens over the picker, so the frontmost dialog is the one under test. */
+const front = (): OpenDialog => opened[opened.length - 1];
+
+// The picker opens a microtask after the pack answers, and a form's change listener is an
+// attachment — an effect later than the mount that put its fields on screen.
+const settle = (): Promise<unknown> => new Promise((resolve) => setTimeout(resolve));
 
 const select = (selector: string, value: string): void => {
   const node = only().element.querySelector<HTMLSelectElement>(selector)!;
@@ -56,7 +65,14 @@ const check = (selector: string): void => {
   only().element.querySelector<HTMLElement>(selector)!.click();
 };
 
-describe('promptNewSkill', () => {
+/** The form has no submit of its own: a field lands on the draft when it fires `change`. */
+const fill = (name: string, value: string): void => {
+  const node = front().element.querySelector<HTMLInputElement>(`[name="${name}"]`)!;
+  node.value = value;
+  node.dispatchEvent(new Event('change', { bubbles: true }));
+};
+
+describe('promptNewItem', () => {
   interface Created {
     readonly created: object[][];
     readonly actor: { createEmbeddedDocuments(type: string, data: object[]): Promise<unknown> };
@@ -75,44 +91,79 @@ describe('promptNewSkill', () => {
     };
   };
 
-  // The bonus comes from rules.ts, not a second copy of the table that could disagree with it.
-  it('creates the skill with the bonus its rank is worth', async () => {
-    const { actor, created } = actorOf();
-    const done = promptNewSkill(actor);
-
-    type('#name', 'Zero-G');
-    select('#rank', 'Expert');
-    await only().press('create');
-    await done;
-
-    expect(created).toEqual([
-      [{ name: 'Zero-G', type: 'skill', system: { rank: 'Expert', bonus: 15 } }],
-    ]);
+  beforeEach(() => {
+    installItemForms({ skill: { description: '', rank: 'Trained', bonus: 10, prerequisite_ids: [] } });
   });
 
-  it('creates a Trained skill when the rank is left alone', async () => {
-    const { actor, created } = actorOf();
-    const done = promptNewSkill(actor);
+  it('opens the type’s own sheet form on the DataModel’s defaults', async () => {
+    const world = installWorldItems();
+    const done = promptNewItem(actorOf().actor, 'skill');
+    await settle();
 
-    await only().press('create');
+    expect(only().title).toBe('New Skill');
+    expect(only().buttons.map((button) => button.action)).toEqual(['add', 'world', 'cancel']);
+    expect(only().element.querySelector<HTMLInputElement>('[name="name"]')!.value).toBe('New Skill');
+    expect(only().element.querySelector<HTMLInputElement>('[name="system.bonus"]')!.value).toBe('10');
+
+    await only().press('cancel');
     await done;
-
-    expect(created).toEqual([
-      [{ name: 'New Skill', type: 'skill', system: { rank: 'Trained', bonus: 10 } }],
-    ]);
+    expect(world.created).toEqual([]);
   });
 
-  it('creates nothing on cancel, and nothing on a dismissal', async () => {
+  it('files what was typed in the world, and leaves the character alone', async () => {
+    const world = installWorldItems();
+    const { actor, created } = actorOf();
+    const done = promptNewItem(actor, 'skill');
+    await settle();
+
+    fill('name', 'Zero-G');
+    fill('system.rank', 'Expert');
+    fill('system.bonus', '15');
+    await only().press('world');
+    await done;
+
+    expect(world.created).toEqual([
+      {
+        name: 'Zero-G',
+        type: 'skill',
+        img: undefined,
+        system: { description: '', rank: 'Expert', bonus: 15, prerequisite_ids: [] },
+      },
+    ]);
+    expect(created).toEqual([]);
+  });
+
+  it('files it in the world and hands the character a copy', async () => {
+    const world = installWorldItems();
+    const { actor, created } = actorOf();
+    const done = promptNewItem(actor, 'skill');
+    await settle();
+
+    fill('name', 'Zero-G');
+    await only().press('add');
+    await done;
+
+    expect(world.created).toHaveLength(1);
+    expect(created).toEqual([[world.created[0]]]);
+  });
+
+  // Nothing is written until a button is pressed, which is what makes Cancel mean anything.
+  it('writes nothing on cancel, and nothing on a dismissal', async () => {
+    const world = installWorldItems();
     const { actor, created } = actorOf();
 
-    const cancelled = promptNewSkill(actor);
+    const cancelled = promptNewItem(actor, 'skill');
+    await settle();
+    fill('name', 'Zero-G');
     await only().press('cancel');
     await expect(cancelled).resolves.toBeNull();
 
     opened.length = 0;
-    const dismissed = promptNewSkill(actor);
+    const dismissed = promptNewItem(actor, 'skill');
     only().dismiss();
     await expect(dismissed).resolves.toBeNull();
+
+    expect(world.created).toEqual([]);
     expect(created).toEqual([]);
   });
 });
@@ -169,15 +220,13 @@ describe('promptAddItem', () => {
     packDoc('wp-l', 'Laser Cutter', 'weapon', { damage: '1d100', range: 'long' }),
   ];
 
-  // The dialog opens only after the pack answers, one microtask later than a sync opener.
-  const settle = () => new Promise((resolve) => setTimeout(resolve));
-
   // Rows are keyed by uuid; the fixtures' ids are its last segment.
   const uuidOf = (id: string) => `Compendium.mothershiprpg.test.Item.${id}`;
   const at = (id: string) => `[data-choice="${uuidOf(id)}"]`;
 
+  // The picker is always the first dialog opened here; the new-item form can be standing over it.
   const radios = (): string[] =>
-    [...only().element.querySelectorAll<HTMLElement>('[data-choice]')].map(
+    [...opened[0].element.querySelectorAll<HTMLElement>('[data-choice]')].map(
       (node) => node.dataset.choice!.split('.').pop()!,
     );
 
@@ -381,9 +430,21 @@ describe('promptAddItem', () => {
     expect(created).toEqual([[{ name: 'Bolt Thrower', type: 'weapon', system: { damage: '2d10' } }]]);
   });
 
-  // Create is a body control, not a footer button: the dialog stays open so the new document can
-  // then be picked out of the list it just joined.
-  it('creates a world document of the picker’s type, opens its sheet, and lists it', async () => {
+  // Create is a body control, not a footer button: a footer button would answer the picker, and
+  // the form has to open over a picker that is still standing.
+  it('opens the new-item form over the picker, and takes the picker down once one is written', async () => {
+    installItemForms({
+      armor: {
+        description: '',
+        armorPoints: 1,
+        damageReduction: 0,
+        speed: '',
+        oxygenMax: 0,
+        oxygenCurrent: 0,
+        equipped: false,
+        features: '',
+      },
+    });
     installPacks({ 'mothershiprpg.armor_1e': [packDoc('ar-v', 'Vaccsuit', 'armor', {})] });
     const world = installWorldItems();
     const done = promptAddItem(actorOf().actor, 'armor');
@@ -392,12 +453,49 @@ describe('promptAddItem', () => {
     check('#pick-create');
     await settle();
 
-    expect(world.created).toEqual([{ name: 'Mothership.NewArmor', type: 'armor' }]);
-    expect(world.rendered).toHaveLength(1);
-    expect(only().buttons.map((button) => button.action)).toEqual(['add', 'cancel']);
-    expect(radios()).toEqual(['ar-v', 'world-0']);
+    expect(opened).toHaveLength(2);
+    expect(front().title).toBe('New Armor');
 
-    only().dismiss();
+    fill('name', 'Standard Battle Dress');
+    await front().press('world');
+    await done;
+
+    expect(world.created).toEqual([
+      {
+        name: 'Standard Battle Dress',
+        type: 'armor',
+        img: undefined,
+        system: {
+          description: '',
+          armorPoints: 1,
+          damageReduction: 0,
+          speed: '',
+          oxygenMax: 0,
+          oxygenCurrent: 0,
+          equipped: false,
+          features: '',
+        },
+      },
+    ]);
+    expect(world.rendered).toEqual([]);
+  });
+
+  it('leaves the picker standing when the form is cancelled', async () => {
+    installItemForms({ armor: { description: '' } });
+    installPacks({ 'mothershiprpg.armor_1e': [packDoc('ar-v', 'Vaccsuit', 'armor', {})] });
+    const world = installWorldItems();
+    const done = promptAddItem(actorOf().actor, 'armor');
+    await settle();
+
+    check('#pick-create');
+    await settle();
+    await front().press('cancel');
+    await settle();
+
+    expect(world.created).toEqual([]);
+    expect(radios()).toEqual(['ar-v']);
+
+    opened[0].dismiss();
     await done;
   });
 
@@ -422,13 +520,14 @@ describe('promptAddItem', () => {
     await done;
   });
 
-  it('falls straight back to the blank flow when the pack is missing', async () => {
+  it('falls straight back to the new-item form when the pack is missing', async () => {
+    installItemForms({ skill: { description: '', rank: 'Trained', bonus: 10, prerequisite_ids: [] } });
     installPacks({});
     const { actor } = actorOf();
     const pending = promptAddItem(actor, 'skill');
     await settle();
 
-    expect(only().element.querySelector('#name')).not.toBeNull();
+    expect(only().title).toBe('New Skill');
     only().dismiss();
     await expect(pending).resolves.toBeNull();
   });
