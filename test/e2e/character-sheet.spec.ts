@@ -418,6 +418,23 @@ test.describe('character sheet', () => {
     const form = gmPage.locator('.macro-popup-dialog').nth(1);
     await expect(form.locator('input[name="name"]')).toHaveValue('New Weapon');
 
+    // The name pill is paper: its ink must be the stylesheet's, not the ink Foundry paints from
+    // whatever theme the player is running.
+    // A probe, because getPropertyValue hands back the token's text rather than its colour.
+    const ink = await form.locator('input[name="name"]').evaluate((node) => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--text-primary)';
+      node.parentElement!.append(probe);
+      const expected = getComputedStyle(probe).color;
+      probe.remove();
+      return { actual: getComputedStyle(node).color, expected };
+    });
+    expect(ink.actual).toBe(ink.expected);
+
+    // Foundry reveals the editor's toggle on hover alone, and an empty description has nothing
+    // to hover — so the only way into the field would be undiscoverable.
+    await expect(form.locator('prose-mirror button.toggle')).toBeVisible();
+
     // Nothing is written until a button is pressed — Cancel leaves the world as it found it.
     await form.locator('button[data-action="cancel"]').click();
     expect(

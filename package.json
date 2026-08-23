@@ -29,7 +29,9 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "test:foundry": "bash scripts/start-test-env.sh",
-    "check:e2e": "tsc --noEmit -p test/e2e/tsconfig.json"
+    "check:e2e": "tsc --noEmit -p test/e2e/tsconfig.json",
+    "audit:tokens": "node scripts/audit-tokens.ts",
+    "audit:fallthrough": "AUDIT_FALLTHROUGH=1 playwright test test/e2e/fallthrough-audit.spec.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.0",

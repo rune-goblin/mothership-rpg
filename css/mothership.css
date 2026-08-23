@@ -625,7 +625,13 @@
     gap: var(--space-10);
   }
 
-  /* shared tier: SheetHeader, CharacterSheet. */
+  /* shared tier: SheetHeader, CharacterSheet. The pill is paper, so its ink is the paper's:
+     Foundry paints input colour from the window's theme, and a window that has not pinned
+     theme-light inherits the user's — which on a dark one is cream on white. */
+  .mothership .headerinputfield input {
+    color: var(--text-primary);
+  }
+
   .mothership .headerinputfield {
     margin: calc(var(--space-2) * -1);
     height: auto;

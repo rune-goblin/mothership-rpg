@@ -59,8 +59,12 @@ declare const foundry:
   | { readonly applications: { readonly api: { readonly DialogV2: { wait(options: DialogV2Options): Promise<unknown> } } } }
   | undefined;
 
-/** `css/mothership.css` styles dialogs by these classes — renaming them needs a CSS change too. */
-const CLASSES = ['mothership', 'macro-popup-dialog'] as const;
+/**
+ * `css/mothership.css` styles dialogs by the first two — renaming them needs a CSS change too.
+ * The theme pair is the same pin every sheet carries: the stylesheet paints paper surfaces and
+ * has no dark variant, so an unpinned dialog gets Foundry's dark ink inside our light fields.
+ */
+const CLASSES = ['mothership', 'macro-popup-dialog', 'themed', 'theme-light'] as const;
 
 /** Turns the form's one column into two and stands the footer up as the rail; styled in CSS. */
 const RAIL_CLASS = 'macro-popup-rail';
