@@ -7,6 +7,7 @@ import { parseRollSpec } from '../rolls/parse.ts';
 import { CHECK_SEMANTICS, type Advantage, type RollSpec } from '../rolls/spec.ts';
 import { cardSource, speakerOf, voiceOfActor, type CheckActor } from './actor.ts';
 import { checkOf, runCheck } from './checks.ts';
+import { woundChoice } from './damage.ts';
 import { evaluateRoll, type Rolled } from './roll.ts';
 import { runTable } from './tables.ts';
 
@@ -14,6 +15,9 @@ export type TargetActors = () => Promise<readonly CheckActor[]> | readonly Check
 
 /** An amount is rolled the way damage is: what it says on the dice, top face and all. */
 const AMOUNT_KIND = 'weapon-damage';
+
+/** The schema's name for the Wound track; the book's word for it is on the label. */
+const WOUNDS = 'hits';
 
 /** 'none' means the content states no modifier, so it maps to null rather than an instruction. */
 function stated(advantage: Advantage): Advantage | null {
@@ -55,12 +59,20 @@ export async function gain(
   }
 
   const result = await mutate(actor, gainAddress(action), change);
+
+  // PSG 29.1 — a Wound means a roll on a Wound table, however the Wound arrived. Nothing here names
+  // which table (a weapon would), so the card offers the choice; the Wound itself was spent by this
+  // change, so the roll it leads to charges none.
+  const wounded = result.field.address.pod === WOUNDS && result.field.to > result.field.from;
+
   const card = mutationCard({
     source: cardSource(actor),
     result,
     voice: voiceOfActor(actor),
     spec,
     rollOutcome: rolled?.outcome ?? null,
+    wound: wounded ? woundChoice() : '',
+    subject: wounded ? (actor.uuid ?? null) : null,
   });
   await postCard(card, { speaker: speakerOf(actor) });
 }

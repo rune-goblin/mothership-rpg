@@ -1,5 +1,6 @@
 <script>
   import ChoiceList from '../ui/parts/ChoiceList.svelte';
+  import ChoiceSelect from '../ui/parts/ChoiceSelect.svelte';
 
   // The body every dialog in this directory is drawn from: the head that names the question, the
   // list that answers it, and the note a condition adds. Everything a caller needs beyond those
@@ -18,6 +19,8 @@
     /** Drawn in each row's right-hand cell, in place of the row's own cells. */
     trailing = null,
     expanded = false,
+    /** `select` for a short list of bare names; `list` draws the rows, art and descriptions. */
+    picker = 'list',
     children = null,
   } = $props();
 </script>
@@ -38,7 +41,11 @@
 
 <div class="prompt-body">
   {#if options}
-    <ChoiceList {options} {value} {onchange} {lines} {trailing} {expanded} label={heading} />
+    {#if picker === 'select'}
+      <ChoiceSelect {options} {value} {onchange} label={heading} />
+    {:else}
+      <ChoiceList {options} {value} {onchange} {lines} {trailing} {expanded} label={heading} />
+    {/if}
   {/if}
 
   {@render children?.()}

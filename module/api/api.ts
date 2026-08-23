@@ -310,16 +310,21 @@ export function registerActions(): void {
    * the wrong actor's Wound and, on an actor they do not own, fail on the write.
    */
   registerChatAction('wound', async (action, context) => {
-    debug('action', `wound ${action.table}`);
+    debug('action', `wound ${action.table ?? 'unnamed'}`);
 
     const messageId = cardOrigin(context.button).messageId;
     if (messageId === null) return warn('Mothership.Errors.NoWoundTarget');
 
+    // A card that names no table asks which — the same prompt `promptWound` opens, so the five
+    // tables are described in one place. Cancelling it is an answer: nothing is rolled.
+    const chosen = action.table === null ? await chooseWound() : null;
+    if (action.table === null && chosen === null) return;
+
     const request = {
       messageId,
       uuid: rowTarget(context.button),
-      table: action.table,
-      advantage: action.advantage,
+      table: chosen?.key ?? action.table!,
+      advantage: chosen?.advantage ?? action.advantage,
     };
     const sent = await dispatch<WoundOutcome>('wound', request);
 
@@ -334,6 +339,20 @@ export function registerActions(): void {
     if (sent.kind === 'timeout') return warn('Mothership.Errors.WardenDidNotAnswer');
     if (sent.kind === 'failed') return warn('Mothership.Errors.NotYourWound');
     woundWarning(sent.result);
+  });
+
+  /**
+   * PSG 29 — the Death Save the last Wound leads to, rolled by whoever the card is about. Unlike a
+   * Wound it is not relayed to the Warden: the death table charges nothing, so the roll writes
+   * nothing, and a player can make it against a creature they do not own from their own client.
+   */
+  registerChatAction('death', async (action, context) => {
+    debug('action', 'death save');
+
+    const { actor } = cardOrigin(context.button);
+    if (actor === null) return warn('Mothership.Errors.NoWoundTarget');
+
+    await actor.rollTable('death', { advantage: action.advantage });
   });
 
   registerChatAction('apply', async (action) => {

@@ -51,6 +51,23 @@ describe('finding a target again', () => {
     expect(await targetActor('Scene.s1.Token.t1')).toBe(wilson);
   });
 
+  // A card about an actor's own change records the actor, not a token — there may be no token.
+  it('is the actor itself when the card recorded an actor', async () => {
+    const sarah = { name: 'Sarah', documentName: 'Actor' };
+    (globalThis as Globals).foundry = { utils: { fromUuid: async () => sarah } };
+
+    expect(await targetActor('Actor.actor1')).toBe(sarah);
+  });
+
+  // Neither a token nor an actor: a uuid off the wire must not become a document to write to.
+  it('is null for a uuid that names something else', async () => {
+    (globalThis as Globals).foundry = {
+      utils: { fromUuid: async () => ({ name: 'Revolver', documentName: 'Item' }) },
+    };
+
+    expect(await targetActor('Item.item1')).toBeNull();
+  });
+
   // The token was deleted between the roll and the click; the button says so rather than throwing.
   it('is null for a token that is gone', async () => {
     (globalThis as Globals).foundry = { utils: { fromUuid: async () => null } };

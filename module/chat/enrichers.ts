@@ -20,7 +20,16 @@ export const CHECK_SCOPES = [
 
 export type CheckScope = (typeof CHECK_SCOPES)[number];
 
-export type ActionVerb = 'check' | 'table' | 'gain' | 'apply' | 'damage' | 'harm' | 'retarget' | 'wound';
+export type ActionVerb =
+  | 'check'
+  | 'table'
+  | 'gain'
+  | 'apply'
+  | 'damage'
+  | 'harm'
+  | 'retarget'
+  | 'wound'
+  | 'death';
 
 export type GainAmount =
   | { readonly kind: 'amount'; readonly amount: number }
@@ -40,7 +49,8 @@ export type ChatAction =
   | { readonly verb: 'damage'; readonly formula: string }
   | { readonly verb: 'harm'; readonly amount: number; readonly half: boolean }
   | { readonly verb: 'retarget' }
-  | { readonly verb: 'wound'; readonly table: TableKey; readonly advantage: Advantage };
+  | { readonly verb: 'wound'; readonly table: TableKey | null; readonly advantage: Advantage }
+  | { readonly verb: 'death'; readonly advantage: Advantage };
 
 export type ActionFault = 'syntax' | 'verb' | 'argument';
 
@@ -57,6 +67,7 @@ const VERBS: Readonly<Record<string, ActionVerb>> = {
   Harm: 'harm',
   Retarget: 'retarget',
   Wound: 'wound',
+  Death: 'death',
 };
 
 const SPELLING: Readonly<Record<ActionVerb, string>> = {
@@ -68,6 +79,7 @@ const SPELLING: Readonly<Record<ActionVerb, string>> = {
   harm: 'Harm',
   retarget: 'Retarget',
   wound: 'Wound',
+  death: 'Death',
 };
 
 /**
@@ -79,7 +91,7 @@ const SPELLING: Readonly<Record<ActionVerb, string>> = {
  * `@UUID[…]{…}` does. A Panic Check is judged against Stress, so it is `@Check[panicCheck]`, not a
  * `@Table`.
  */
-const SYNTAX = '@(Check|Table|Gain|Apply|Damage|Harm|Retarget|Wound)\\[([^\\]]*)\\](?:\\{([^}]*)\\})?';
+const SYNTAX = '@(Check|Table|Gain|Apply|Damage|Harm|Retarget|Wound|Death)\\[([^\\]]*)\\](?:\\{([^}]*)\\})?';
 
 /** `parseAction` uses its own anchored copy, so neither this nor that carries the other's `lastIndex`. */
 export const ACTION_PATTERN = new RegExp(SYNTAX, 'g');
@@ -121,6 +133,18 @@ function parseTable(args: readonly string[]): ActionParse {
   if (key === 'panic') return bad('argument', 'a Panic Check is @Check[panicCheck]');
   if (!isTableKey(key)) return bad('argument', `${key} is not a table`);
   return { ok: true, action: { verb: 'table', table: key, advantage }, label: null };
+}
+
+/**
+ * The Death Save the last Wound leads to (PSG 29). Like `@Wound`, it is rolled by whoever the card
+ * is about rather than whoever clicks it — it takes no argument but the modifier, because there is
+ * only ever the one table.
+ */
+function parseDeath(args: readonly string[]): ActionParse {
+  const [modifier, ...rest] = args.filter((arg) => arg !== '');
+  const advantage = advantageOf(modifier);
+  if (rest.length > 0 || advantage === null) return bad('argument', `@Death[${args.join(' ')}]`);
+  return { ok: true, action: { verb: 'death', advantage }, label: null };
 }
 
 function parseAmount(token: string): GainAmount | null {
@@ -171,11 +195,21 @@ function parseHarm(args: readonly string[]): ActionParse {
  * The wound a hit led to, rolled against the actor whose card it sits in rather than whoever clicks
  * it — which is what separates it from `@Table`, the same roll asked for by the person clicking.
  */
+/**
+ * `@Wound[gunshot]` names the table a weapon's own wound effect calls for. `@Wound[]` names none,
+ * because nothing that led here knows one — a fall, a hand-typed `@Harm`, a `@Gain[hits 1]` — so
+ * the roll asks which table first. Either way it is rolled by whoever the card is about.
+ */
 function parseWound(args: readonly string[]): ActionParse {
-  const [key, modifier, ...rest] = args;
+  const named = args.filter((arg) => arg !== '');
+  if (named.length === 0) {
+    return { ok: true, action: { verb: 'wound', table: null, advantage: 'none' }, label: null };
+  }
+
+  const [key, modifier, ...rest] = named;
   const advantage = advantageOf(modifier);
   if (rest.length > 0 || advantage === null) return bad('argument', `@Wound[${args.join(' ')}]`);
-  if (key === undefined || !isWoundTable(key)) return bad('argument', `${key} is not a wound table`);
+  if (!isWoundTable(key)) return bad('argument', `${key} is not a wound table`);
   return { ok: true, action: { verb: 'wound', table: key, advantage }, label: null };
 }
 
@@ -211,7 +245,9 @@ export function parseAction(text: string): ActionParse {
                 ? { ok: true as const, action: { verb: 'retarget' as const }, label: null }
                 : verb === 'wound'
                   ? parseWound(args)
-                  : parseApply(args);
+                  : verb === 'death'
+                    ? parseDeath(args)
+                    : parseApply(args);
 
   return parsed.ok && match[3] !== undefined ? { ...parsed, label: match[3] } : parsed;
 }
@@ -245,7 +281,9 @@ export function formatAction(action: ChatAction): string {
       case 'retarget':
         return '';
       case 'wound':
-        return `${action.table}${SIGNS[action.advantage]}`;
+        return action.table === null ? '' : `${action.table}${SIGNS[action.advantage]}`;
+      case 'death':
+        return SIGNS[action.advantage].trim();
     }
   })();
   return `@${SPELLING[action.verb]}[${args}]`;
@@ -326,10 +364,12 @@ export function actionLabel(action: ChatAction): string {
     case 'retarget':
       return localize('Mothership.Chat.RetargetLabel');
     case 'wound':
-      return (
-        format('Mothership.Chat.WoundLabel', { wound: localize(`Mothership.Table.${action.table}`) }) +
-        MODIFIER_LABELS[action.advantage]
-      );
+      return action.table === null
+        ? localize('Mothership.Chat.WoundChoiceLabel')
+        : format('Mothership.Chat.WoundLabel', { wound: localize(`Mothership.Table.${action.table}`) }) +
+          MODIFIER_LABELS[action.advantage];
+    case 'death':
+      return localize('Mothership.Chat.DeathLabel') + MODIFIER_LABELS[action.advantage];
   }
 }
 
@@ -342,6 +382,7 @@ const ICONS: Readonly<Record<ActionVerb, string>> = {
   harm: 'fa-solid fa-heart-crack',
   retarget: 'fa-solid fa-bullseye',
   wound: 'fa-solid fa-user-injured',
+  death: 'fa-solid fa-skull',
 };
 
 /** The routing key the delegated listener matches, namespaced so no window claims it by accident. */

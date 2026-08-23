@@ -265,6 +265,15 @@ export function woundOffer(wound: WoundRoll): string {
   return `${at('disadvantage')}{[-]} ${at(wound.advantage)} ${at('advantage')}{[+]}`;
 }
 
+/**
+ * The offer when nothing that led here names a table — a fall, a hand-typed `@Harm`, a weapon whose
+ * wound effect is prose. One button, because the table has to be chosen before a modifier means
+ * anything; the prompt it opens carries the `[+]` and `[-]` in its own footer.
+ */
+export function woundChoice(): string {
+  return formatAction({ verb: 'wound', table: null, advantage: 'none' });
+}
+
 /** PSG 19 — `[+]` and `[-]` cancel, so a critical worsens a weapon's own advantage rather than losing to it. */
 function worse(advantage: Advantage): Advantage {
   return advantage === 'advantage' ? 'none' : 'disadvantage';

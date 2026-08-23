@@ -159,8 +159,8 @@
       },
       "hits": {
         "increase": {
-          "android": "@UUID[Compendium.mothershiprpg.macros_hotbar_1e.ZzKgfEmRdvDfyBMS]{Make a Wound Check}",
-          "human": "@UUID[Compendium.mothershiprpg.macros_hotbar_1e.ZzKgfEmRdvDfyBMS]{Make a Wound Check}"
+          "android": "",
+          "human": ""
         },
         "increaseHeader": {
           "android": "Damaged",
@@ -171,12 +171,12 @@
           "human": "systems/mothershiprpg/images/icons/ui/attributes/health.png"
         },
         "hitCeiling": {
-          "android": "The end draws near . . .<br><br>@UUID[Compendium.mothershiprpg.macros_hotbar_1e.NsRHfRuuNGPfkYVf]{Make a Death Save}",
-          "human": "The end draws near . . .<br><br>@UUID[Compendium.mothershiprpg.macros_hotbar_1e.NsRHfRuuNGPfkYVf]{Make a Death Save}"
+          "android": "The end draws near . . .<br><br>@Death[]",
+          "human": "The end draws near . . .<br><br>@Death[]"
         },
         "pastCeiling": {
-          "android": "The end draws near . . .<br><br>@UUID[Compendium.mothershiprpg.macros_hotbar_1e.NsRHfRuuNGPfkYVf]{Make a Death Save}",
-          "human": "The end draws near . . .<br><br>@UUID[Compendium.mothershiprpg.macros_hotbar_1e.NsRHfRuuNGPfkYVf]{Make a Death Save}"
+          "android": "The end draws near . . .<br><br>@Death[]",
+          "human": "The end draws near . . .<br><br>@Death[]"
         },
         "decrease": {
           "android": "System resources free up and you feel energized.",
@@ -1042,6 +1042,8 @@
       "HarmTaken": "Took",
       "RetargetLabel": "Aim at what I have targeted",
       "WoundLabel": "Roll {wound}",
+      "WoundChoiceLabel": "Make a Wound Check",
+      "DeathLabel": "Make a Death Save",
       "DamageModeLabel": "Roll {damage} · {mode}",
       "RollDamageOffer": "Roll the damage you deal: {damage}",
       "CheckSentence": "You {verb} {comparison} your {attribute}.",

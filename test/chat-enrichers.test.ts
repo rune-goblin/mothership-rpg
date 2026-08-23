@@ -124,6 +124,27 @@ describe('parsing', () => {
   it('has one spelling for a Panic Check', () => {
     expect(parseAction('@Table[panic]')).toMatchObject({ ok: false, detail: 'a Panic Check is @Check[panicCheck]' });
     expect(parsed('@Table[gunshot -]')).toEqual({ verb: 'table', table: 'gunshot', advantage: 'disadvantage' });
+
+    // No table named: the card asks which before it rolls, so the bracket is empty.
+    expect(parsed('@Wound[]')).toEqual({ verb: 'wound', table: null, advantage: 'none' });
+    expect(formatAction({ verb: 'wound', table: null, advantage: 'none' })).toBe('@Wound[]');
+    expect(parseAction('@Wound[nonsense]')).toMatchObject({
+      ok: false,
+      detail: 'nonsense is not a wound table',
+    });
+
+    // Round-trips, which is what lets a card be rebuilt from what it printed.
+    expect(formatAction({ verb: 'death', advantage: 'none' })).toBe('@Death[]');
+    expect(formatAction({ verb: 'death', advantage: 'advantage' })).toBe('@Death[+]');
+    expect(parsed(formatAction({ verb: 'death', advantage: 'disadvantage' }))).toEqual({
+      verb: 'death',
+      advantage: 'disadvantage',
+    });
+
+    // The one table with no argument to name: the Death Save takes only its modifier.
+    expect(parsed('@Death[]')).toEqual({ verb: 'death', advantage: 'none' });
+    expect(parsed('@Death[+]')).toEqual({ verb: 'death', advantage: 'advantage' });
+    expect(parsed('@Death[-]')).toEqual({ verb: 'death', advantage: 'disadvantage' });
   });
 
   // Conditions have a `scope` enum so text like Nightmares names a specific roll; checks

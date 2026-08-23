@@ -396,6 +396,23 @@ describe('registerActions', () => {
       expect(base.calls).toEqual([]);
     });
 
+    // PSG 29 — the card's own actor makes the save, not whoever clicks it and not the selection.
+    it('rolls a Death Save for the card’s actor, not the clicker’s', async () => {
+      const dying = actor('Dying');
+      const selected = actor('Someone Else');
+      assign(selected);
+      globals.game = { ...(globals.game as Globals), actors: { get: () => dying } };
+      api.registerActions();
+
+      await runChatAction(action('@Death[+]'), {
+        event: null as unknown as MouseEvent,
+        button: card({ 'data-actor-id': 'actor1' }),
+      });
+
+      expect(dying.rollTable).toHaveBeenCalledWith('death', { advantage: 'advantage' });
+      expect(selected.calls).toEqual([]);
+    });
+
     it('says so rather than guessing when the card names neither', async () => {
       installI18n({ 'Mothership.Errors.NoDamageSource': 'This card names no actor and weapon.' });
       api.registerActions();

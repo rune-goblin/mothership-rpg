@@ -209,14 +209,15 @@ describe('the Wound a hit costs', () => {
     expect(chat.cards.at(-1)?.data).toMatchObject({ woundActions: '' });
   });
 
-  // A fall, a Bleeding condition, a hand-typed @Harm: damage with no weapon names no table.
-  it('rolls nothing for a Wound with no weapon behind it', async () => {
+  // A fall, a Bleeding condition, a hand-typed @Harm: damage with no weapon names no table. The
+  // Wound is still taken, so the card offers the roll and the button asks which table.
+  it('offers the choice for a Wound with no weapon behind it, rather than rolling one', async () => {
     const chat = stubs({ autoRollWoundsCharacters: true });
 
     await harmActor(wounded(), 9);
 
     expect(rolledTables).toEqual([]);
-    expect(chat.cards.at(-1)?.data).toMatchObject({ woundActions: '' });
+    expect(chat.cards.at(-1)?.data).toMatchObject({ woundActions: '@Wound[]' });
   });
 
   // Past the last Wound there is nothing to roll on: the card is a death, not an injury.

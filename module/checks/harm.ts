@@ -22,7 +22,7 @@ import { mutate, type MutationResult } from '../mutation/mutate.ts';
 import { isAdvantage } from '../rolls/spec.ts';
 import { isWoundTable } from '../tables/tables.ts';
 import { cardSource, isCharacter, speakerOf, voiceOfActor, type CheckActor } from './actor.ts';
-import { woundOffer, type WoundRoll } from './damage.ts';
+import { woundChoice, woundOffer, type WoundRoll } from './damage.ts';
 import { autoRollWounds } from './settings.ts';
 import { runTable } from './tables.ts';
 import { targetActor } from './targets.ts';
@@ -73,8 +73,10 @@ export async function harmActor(
 
   const result = await mutate(actor, HEALTH, { kind: 'amount', amount: -taken });
 
-  // A Wound with no weapon behind it names no table, and a dead actor has run out of them.
-  const wounded = result.wounds !== null && !result.dead && wound !== null;
+  // A dead actor has run out of Wounds. A live one that took one still rolls on a table — the
+  // weapon names which when it can, and the card asks when nothing does.
+  const took = result.wounds !== null && !result.dead;
+  const wounded = took && wound !== null;
   const rolls = wounded && autoRollWounds(isCharacter(actor));
 
   await postCard(
@@ -82,7 +84,7 @@ export async function harmActor(
       source: cardSource(actor),
       result,
       voice: voiceOfActor(actor),
-      wound: wounded && !rolls ? woundOffer(wound) : '',
+      wound: rolls ? '' : wounded ? woundOffer(wound) : took ? woundChoice() : '',
       woundRoll: wounded && !rolls ? wound : null,
       subject,
     }),

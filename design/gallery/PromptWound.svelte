@@ -4,7 +4,7 @@
     title: 'Prompt — which Wound table',
     path: 'module/dialogs/Prompt.svelte',
     width: 660,
-    note: 'The five Wound tables as one choice list, each row carrying the table’s own art and no description to open; the roll-type buttons are the dialog’s footer stood up as the rail.',
+    note: 'The five Wound tables as one dropdown — bare names, and the head already carries the art, so the rows ChoiceList would draw buy nothing here; the roll-type buttons are the dialog’s footer stood up as the rail.',
   };
 </script>
 
@@ -48,6 +48,7 @@
     heading={localize('Mothership.WoundRoll')}
     intro={localize('Mothership.WhatAWoundRollIs')}
     {options}
+    picker="select"
     {value}
     onchange={(next) => (value = next)}
   />

@@ -465,21 +465,29 @@ describe('the prompts', () => {
     await expect(dismissed).resolves.toBeNull();
   });
 
+  // Five bare names and the head's own art: this one picks from a dropdown, not a row per table.
   it('chooseWound answers with the table key and the modifier, and carries no document id', async () => {
     const answer = chooseWound();
 
-    expect(
-      [...only().element.querySelectorAll('[data-choice]')].map((node) => node.getAttribute('data-choice')),
-    ).toEqual(['bleeding', 'blunt-force', 'fire-explosives', 'gore-massive', 'gunshot']);
+    const select = only().element.querySelector<HTMLSelectElement>('select')!;
+    expect([...select.options].map((option) => option.value)).toEqual([
+      'bleeding',
+      'blunt-force',
+      'fire-explosives',
+      'gore-massive',
+      'gunshot',
+    ]);
     // Two of the five shipped filenames keep an `&` the table key spells as a dash.
     for (const img of only().element.querySelectorAll('img')) {
       expect(img.getAttribute('src')).not.toContain('undefined');
     }
 
     // Blunt Force is preselected; the (alphabetical) key order gives no reason why.
-    expect(checkedRow(only().element)).toBe('blunt-force');
+    expect(select.value).toBe('blunt-force');
 
-    only().element.querySelector<HTMLTableRowElement>('[data-choice="gunshot"]')!.click();
+    select.value = 'gunshot';
+    // Bubbling, as a real one does — Svelte 5 delegates `change` to the root.
+    select.dispatchEvent(new Event('change', { bubbles: true }));
     flushSync();
     await only().press('advantage');
 

@@ -445,6 +445,8 @@ export async function chooseWound(): Promise<ChosenWound | null> {
       label: localize(`Mothership.Table.${key}`),
       img: asset(`images/icons/ui/rolltables/${WOUND_ICONS[key]}`),
     })),
+    // Five bare names, and the head already carries the art: a dropdown says it in one line.
+    picker: 'select',
   };
 
   return await svelteDialog<TableKey, ChosenWound, typeof props>({

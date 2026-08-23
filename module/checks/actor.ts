@@ -23,6 +23,8 @@ export interface ItemCollection extends Iterable<CheckItem> {
 
 export interface CheckActor extends MutableDocument {
   readonly id: string | null;
+  /** How a card records who it is about, when what changed is the actor's own. */
+  readonly uuid?: string;
   readonly name: string;
   readonly img: string;
   readonly type: string;

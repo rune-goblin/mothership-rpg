@@ -84,6 +84,7 @@ function character(items: readonly CheckItem[] = []): FakeActor {
 
   return {
     id: 'actor1',
+    uuid: 'Actor.actor1',
     name: 'Sarah',
     img: 'sarah.png',
     type: 'character',
@@ -223,6 +224,43 @@ describe('@Gain', () => {
     expect(chat.cards[0].data).toMatchObject({
       msgOutcome: 'Stress increased from <strong>4</strong> to <strong>5</strong>.',
     });
+  });
+
+  /**
+   * PSG 29.1 — a Wound is taken by rolling on a Wound table, however the Wound arrived. Nothing in
+   * a `@Gain` names which table, so the card offers the choice and records whose Wound it is; the
+   * roll it leads to charges none, because this change already spent it.
+   */
+  it('offers the Wound roll when what it added was a Wound', async () => {
+    stubs([]);
+    const sarah = character();
+
+    await runAction(action('@Gain[wounds 1]'), [sarah]);
+
+    expect(sarah.updates).toEqual([{ 'system.hits.value': 1 }]);
+    expect(chat.cards[0].data).toMatchObject({
+      woundActions: '@Wound[]',
+      subject: 'Actor.actor1',
+    });
+  });
+
+  it('offers nothing for a change that is not a Wound', async () => {
+    stubs([]);
+
+    await runAction(action('@Gain[stress 1]'), [character()]);
+
+    expect(chat.cards[0].data).toMatchObject({ woundActions: '', subject: null });
+  });
+
+  // At the ceiling already: nothing moved, so there is no Wound to roll on.
+  it('offers nothing when the track had no room left', async () => {
+    stubs([]);
+    const sarah = character();
+    (sarah.system as { hits: { value: number } }).hits.value = 2;
+
+    await runAction(action('@Gain[wounds 1]'), [sarah]);
+
+    expect(chat.cards[0].data).toMatchObject({ woundActions: '' });
   });
 
   // A rolled amount is the roll's own arithmetic, not the kept die.
