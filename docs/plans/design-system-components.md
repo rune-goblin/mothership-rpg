@@ -1,55 +1,88 @@
-# Design system — primitives with variants
+# Design system — unify the controls onto a shared scale
 
 Handover for a fresh thread. Written 2026-08-23, at `bf5ad4b`.
 
 ## The task
 
-Extract the system's UI into **reusable primitives with a variant API**, so a component is
-configured rather than restyled. `@motion-proto/live-tokens` is the reference model.
+Unify the system's UI into **a small set of primitives with a cohesive size/variant scale**, so a
+component is configured rather than restyled. `@motion-proto/live-tokens` is the reference model.
 
-**Scope this correctly — the obvious framing is wrong.** "We hardcode and recreate every time"
-does not survive measurement:
+The objective is **convergence, not preservation**. Where components differ today, assume the
+difference was inherited until someone shows it was chosen — the measurements below say most of it
+was not.
+
+### What is actually wrong
+
+Two facts that look contradictory and are both true:
 
 | Measured at `bf5ad4b` | |
 |---|---|
 | Components with scoped styles | 37 |
 | Property clusters written 3+ times across components | **0** |
-| Components hand-styling a raw control | 8 (`button` 5, `input` 3, `textarea` 2, `select` 1) |
-| Declarations referencing a token | 1133 of 2074 |
 | Hard-coded literals with a token available | **0** |
+| Declarations referencing a token | 1133 of 2074 |
+| Distinct `<input>` geometries | **8**, across 8 classes / 144 instances |
+| Distinct `<button>` geometries | 3, across 3 classes / 8 instances |
 
-The S9 audit already collapsed the real duplications (CheckField's twin, the two popup bodies,
-the trauma box, the armour bar, the black pill — see `git log`). There is no copy-paste left to
-delete.
+So there is **no copy-paste to delete** — S9 already collapsed that (CheckField's twin, the two
+popup bodies, the trauma box, the armour bar, the black pill; see `git log`). What is left is
+**uncontrolled divergence**: every component reached for its own values, and nothing ever
+reconciled them. Nothing to delete, a great deal to converge.
 
-The actual gap is that **no primitive exists to configure**. Five components each style their own
-`<button>` because there is no `Button`. That is extraction of a variant API, not deduplication —
-and the difference matters, because most per-component styling is *legitimate* variation that must
-survive the refactor, not be flattened into a common look.
+### The evidence that the divergence is accidental
 
-## The inventory to design against
-
-Every bespoke control class the system renders (Foundry's own `header-control` buttons excluded —
-those stay Foundry's):
+Measured live across the character, creature and five item sheets (157 controls):
 
 ```
-button:    cover-choice · damage-mode-add · stepper-step · icon.toggle (Foundry's ProseMirror)
-input:     circle-input · creature-name.noborder · maxhealth-input · textvaluewrapper-input
-           stat-modifier-field · noborder · (bare)
-select:    textvaluewrapper-input
-textarea:  textarea-input
+  font  radius   bw  line-h  box   class
+  36px     4px  0px  39.6px   40   input.creature-name.noborder
+  32px    48px  3px    32px   66   input.circle-input
+  24px     4px  0px    32px   32   input.maxhealth-input (darkGreyText | whiteText)
+  24px    48px  3px    32px   50   input.circle-input
+  20px   999px  0px    32px   26   input.stat-modifier-field
+  16px     4px  0px    32px   32   input.textvaluewrapper-input, input.noborder
+14.4px     0px  0px    18px   21   input
+14.4px     4px  1px    32px   32   input
 ```
 
-These are the variants to name. They differ in geometry — padding, radius, font-size,
-line-height — by design; `input.circle-input` and `input.maxhealth-input` genuinely want
-different sizes. A variant API has to express that, not erase it.
+Three tells, none of which a designer would have chosen:
+
+1. **Two tokens for one intent.** `circle-input` rounds with `--radius-4xl` (48px);
+   `stat-modifier-field` with `--radius-full` (999px). At `circle-input`'s 66px box, 48px is not
+   even fully round.
+2. **`line-height: 32px` is pinned across font-sizes from 14.4px to 36px** — at 36px it is smaller
+   than the font. That is an inherited constant, not a decision.
+3. **`darkGreyText` / `whiteText` are separate classes on the same input.** A colour variant
+   encoded as a class is precisely what a prop should carry.
+
+Buttons are nearly healthy already: 3 geometries, two differing only in `line-height`
+(`13.6px` vs `normal`) — 2 real designs and a slip. **Inputs are the problem**, and a cohesive
+scale should land near three sizes, not eight.
+
+### The shape to aim for
+
+- A **size scale** (roughly sm / md / lg) that inputs, buttons, selects and textareas all draw
+  from, replacing the current per-component font/radius/height triplets.
+- **Variants as props, not classes** — tone (`darkGreyText`/`whiteText`), shape (circle, stadium,
+  square), and border presence (`noborder`) are all props of one primitive.
+- **One rounding vocabulary.** Decide between `--radius-4xl` and `--radius-full` for "fully
+  round" and retire the other from control styling.
+- **Line-height derived from the size step**, not a constant.
 
 30 components already define Layer-2 `--<componentid>-*` tokens (CreatureSheet 44, ChoiceList 36,
-ArmorBlock 28, …). That convention is the seam a variant API should build on, not replace.
+ArmorBlock 28, …). That convention is the seam to build the scale on — a primitive should read its
+size step from tokens the same way.
 
-The still-open S9 item from `CLAUDE.md` belongs to this work: **the shared stat vocabulary in
-`css/mothership.css` that six components hand-write**, which needs MainStat/CircleStats to grow
-variants before it can move. Start there — it is the one place with a named, blocked consumer.
+Expect this to move pixels. That is the point, and `test/e2e/visual-baselines.spec.ts` at
+`maxDiffPixels: 0` is the review mechanism: every change is either intended and regenerated, or
+caught.
+
+### The starting point
+
+The still-open S9 item in `CLAUDE.md` belongs to this work: **the shared stat vocabulary in
+`css/mothership.css` that six components hand-write**, explicitly blocked on MainStat/CircleStats
+growing variants. It is the one place with a named, waiting consumer — and `circle-input`'s two
+sizes and stray 48px radius sit right in it.
 
 ## What the last thread established
 
