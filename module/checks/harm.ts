@@ -5,12 +5,14 @@
  */
 
 import {
+  appliedSoFar,
   CARD_FLAG,
   mutationCard,
   ownsCard,
   postCard,
   rememberedCard,
   renderCard,
+  storedTargets,
   SYSTEM_ID,
   targetRows,
   type CardMessage,
@@ -92,31 +94,6 @@ export async function harmActor(
   if (rolls) await runTable(actor, wound.table, { advantage: wound.advantage, costsWound: false });
 
   return { kind: 'applied', amount: taken, result };
-}
-
-/** What a target row looked like before this click, so re-rendering keeps every other row's state. */
-function appliedSoFar(data: Record<string, unknown>): Record<string, number> {
-  const rows = Array.isArray(data.targets) ? data.targets : [];
-  const applied: Record<string, number> = {};
-  for (const row of rows) {
-    const target = fields(row);
-    if (typeof target.uuid === 'string' && target.taken === true && typeof target.applied === 'number') {
-      applied[target.uuid] = target.applied;
-    }
-  }
-  return applied;
-}
-
-export function storedTargets(data: Record<string, unknown>): CardTarget[] {
-  const rows = Array.isArray(data.targets) ? data.targets : [];
-  return rows.map((row) => {
-    const target = fields(row);
-    return {
-      uuid: typeof target.uuid === 'string' ? target.uuid : '',
-      name: typeof target.name === 'string' ? target.name : '',
-      img: typeof target.img === 'string' ? target.img : '',
-    };
-  });
 }
 
 export type CardRewrite = 'rewritten' | 'forbidden' | 'unrecorded' | 'unaimed';

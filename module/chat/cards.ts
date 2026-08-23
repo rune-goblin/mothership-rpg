@@ -226,6 +226,36 @@ export interface CardTargetRow extends CardTarget {
   readonly actions: string;
 }
 
+function cardFields(value: unknown): Record<string, unknown> {
+  return (typeof value === 'object' && value !== null ? value : {}) as Record<string, unknown>;
+}
+
+/** Who a posted card recorded as aimed at, read back off its own flags. */
+export function storedTargets(data: Record<string, unknown>): CardTarget[] {
+  const rows = Array.isArray(data.targets) ? data.targets : [];
+  return rows.map((row) => {
+    const target = cardFields(row);
+    return {
+      uuid: typeof target.uuid === 'string' ? target.uuid : '',
+      name: typeof target.name === 'string' ? target.name : '',
+      img: typeof target.img === 'string' ? target.img : '',
+    };
+  });
+}
+
+/** What a target row had already taken, so re-rendering keeps every other row's state. */
+export function appliedSoFar(data: Record<string, unknown>): Record<string, number> {
+  const rows = Array.isArray(data.targets) ? data.targets : [];
+  const applied: Record<string, number> = {};
+  for (const row of rows) {
+    const target = cardFields(row);
+    if (typeof target.uuid === 'string' && target.taken === true && typeof target.applied === 'number') {
+      applied[target.uuid] = target.applied;
+    }
+  }
+  return applied;
+}
+
 function harmActions(total: number): string {
   const full = { verb: 'harm' as const, amount: total, half: false };
   const half = { verb: 'harm' as const, amount: total, half: true };
@@ -284,6 +314,12 @@ export interface CheckCardInput {
   readonly damageTotal?: number | null;
   /** The wound table a Wound from this hit rolls on, carried so applying the damage can roll it. */
   readonly wound?: CardWound | null;
+  /**
+   * Whether this card is one damage gets spent from. Separate from `damageTotal`, because a card
+   * that offers its damage has none yet and still needs the block: who it was aimed at is worth
+   * seeing before the roll, and Change Target is how a shot fired at nothing is aimed at something.
+   */
+  readonly targeting?: boolean;
 }
 
 /** What the card remembers of the weapon's wound effect: the table, and how this hit rolls it. */
@@ -336,7 +372,7 @@ export function checkCard(input: CheckCardInput): Card<object> {
       woundEffect,
       critFail: input.critFail === true,
       damageTotal: input.damageTotal ?? null,
-      showTargets: input.damageTotal !== null && input.damageTotal !== undefined,
+      showTargets: input.targeting === true || (input.damageTotal !== null && input.damageTotal !== undefined),
       targets: targetRows(input.targets ?? [], input.damageTotal ?? null),
       retarget: formatAction({ verb: 'retarget' }),
       wound: input.wound ?? null,

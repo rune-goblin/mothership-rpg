@@ -92,9 +92,14 @@ async function buildCast(page: Page): Promise<Cast> {
  * Every field a test reads is written every time rather than merged — the token is unlinked, so a
  * hit lands in its delta, and a partial reset would leave the previous test's number underneath.
  */
-async function aim(page: Page, victimSystem: Record<string, unknown> = {}): Promise<Cast> {
+async function aim(
+  page: Page,
+  victimSystem: Record<string, unknown> = {},
+  options: { targeted?: boolean } = {},
+): Promise<Cast> {
+  const targeted = options.targeted !== false;
   await page.evaluate(
-    async ({ ids, system }: { ids: Cast; system: Record<string, unknown> }) => {
+    async ({ ids, system, targeted }: { ids: Cast; system: Record<string, unknown>; targeted: boolean }) => {
       const w = window as any;
       const health = (system.health ?? {}) as { value?: number; max?: number };
       const hits = (system.hits ?? {}) as { value?: number; max?: number };
@@ -115,16 +120,27 @@ async function aim(page: Page, victimSystem: Record<string, unknown> = {}): Prom
       const shooter = await w.fromUuid(ids.shooter);
       await shooter.items.find((i: any) => i.type === 'weapon').update({ 'system.woundEffect': '' });
 
+      // Defaults, not whatever the last test wanted. Restoring these in a test's own `finally` is
+      // not enough: a test that times out never reaches it, and every test after it reads the
+      // setting it left behind — which is one failure becoming the whole file's. Written only when
+      // it has moved, because a `set` is a round trip to the server and this runs before every test.
+      for (const key of ['autoRollDamagePlayers', 'autoRollWoundsCharacters']) {
+        if (w.game.settings.get('mothershiprpg', key) !== true) {
+          await w.game.settings.set('mothershiprpg', key, true);
+        }
+      }
+
       // A second victim belongs to the one test that makes it.
       const strays = w.canvas.scene.tokens.filter((t: any) => t.name === '__e2e_second').map((t: any) => t.id);
       if (strays.length) await w.canvas.scene.deleteEmbeddedDocuments('Token', strays);
       const strayActors = w.game.actors.filter((a: any) => a.name === '__e2e_second').map((a: any) => a.id);
       if (strayActors.length) await w.game.actors.documentClass.deleteDocuments(strayActors);
 
-      for (const targeted of [...w.game.user.targets]) targeted.setTarget(false, { releaseOthers: false });
-      (token.object ?? w.canvas.tokens.get(token.id))?.setTarget(true, { releaseOthers: true });
+      for (const aimed of [...w.game.user.targets]) aimed.setTarget(false, { releaseOthers: false });
+      if (targeted) (token.object ?? w.canvas.tokens.get(token.id))?.setTarget(true, { releaseOthers: true });
+      w.ui.sidebar.collapse();
     },
-    { ids: cast, system: victimSystem },
+    { ids: cast, system: victimSystem, targeted },
   );
   return cast;
 }
@@ -153,6 +169,61 @@ async function fire(page: Page, shooter: string): Promise<{ message: string; tot
 
 const row = (page: Page, message: string) =>
   page.locator(`[data-message-id="${message}"] .card-target`).first();
+
+/**
+ * A card is rendered twice — the sidebar's log and the notification column — and which copy a
+ * button can be clicked in depends on how tall the card is and where each column has scrolled to.
+ * So the copy is chosen by measurement rather than by guessing at Foundry's sidebar DOM: the first
+ * one actually inside the viewport, falling back to scrolling the first copy into reach.
+ */
+async function clickable(page: Page, message: string, selector: string) {
+  const copies = page.locator(`[data-message-id="${message}"] ${selector}`);
+  await expect(copies.first()).toBeAttached();
+
+  for (const copy of await copies.all()) {
+    const box = await copy.boundingBox();
+    if (box === null) continue;
+    const onScreen = await page.evaluate(
+      ({ top, height }: { top: number; height: number }) => top >= 0 && top + height <= window.innerHeight,
+      { top: box.y, height: box.height },
+    );
+    if (onScreen) return copy;
+  }
+
+  const first = copies.first();
+  await first.scrollIntoViewIfNeeded();
+  return first;
+}
+
+/** The card as it was stored, which is what the buttons are drawn from. */
+const cardData = (page: Page, message: string) =>
+  page.evaluate(
+    (id: string) => (window as any).game.messages.get(id).flags.mothershiprpg.card.data,
+    message,
+  );
+
+/** Roll the weapon with the damage left for the card to offer, and answer the check prompt. */
+async function fireOffering(page: Page, shooter: string): Promise<string> {
+  await page.evaluate(async () => {
+    await (window as any).game.settings.set('mothershiprpg', 'autoRollDamagePlayers', false);
+  });
+  await rigDie(page, 5);
+  await page.evaluate(async (u: string) => {
+    const actor = await (window as any).fromUuid(u);
+    void actor.rollWeapon(actor.items.find((i: any) => i.type === 'weapon').id);
+  }, shooter);
+  await answer(page, 'none');
+
+  return await page.evaluate(async () => {
+    const w = window as any;
+    for (let tries = 0; tries < 60; tries += 1) {
+      const posted = w.game.messages.contents.at(-1);
+      if (posted?.flags?.mothershiprpg?.card) return posted.id as string;
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    throw new Error('no attack card was posted');
+  });
+}
 
 test.describe('applying damage to the targeted actor', () => {
   test.beforeAll(async ({ gmPage }) => {
@@ -224,6 +295,67 @@ test.describe('applying damage to the targeted actor', () => {
     await row(gmPage, message).locator('.mothership-action').nth(1).click();
 
     await expect.poll(() => stored(gmPage, victim, 'system.health.value')).toBe(20 - Math.floor(total / 2));
+  });
+
+  /**
+   * A card that offers its damage has no total yet, and everything the total used to decide was
+   * decided when the card was posted — so the Targets block, the row and Change Target were all
+   * switched off until the damage was rolled, and the damage had nowhere to be spent.
+   */
+  test('damage rolled from the card is spent on the target the card named', async ({ gmPage }) => {
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } });
+    const message = await fireOffering(gmPage, shooter);
+
+    // Aimed before the damage exists: the row names who was targeted and carries no button yet.
+    expect((await cardData(gmPage, message)).damageTotal).toBeNull();
+    await expect(row(gmPage, message)).toContainText('__e2e_victim');
+    await expect(row(gmPage, message).locator('.mothership-action')).toHaveCount(0);
+
+    // The offer sits in the card's own sentence, above the rows.
+    await (await clickable(gmPage, message, '.mothership-action')).click();
+
+    const total = await expect
+      .poll(async () => (await cardData(gmPage, message)).damageTotal)
+      .toBeGreaterThan(0)
+      .then(async () => (await cardData(gmPage, message)).damageTotal as number);
+
+    // The row the card already named now carries the buttons that spend what was just rolled.
+    await (await clickable(gmPage, message, '.card-target .mothership-action')).click();
+    await expect.poll(() => stored(gmPage, victim, 'system.health.value')).toBe(20 - total);
+  });
+
+  /**
+   * The shot nobody remembered to target. The card records no rows, and Change Target is the only
+   * thing that can give it one — so it has to be there on a card that has no targets at all.
+   */
+  test('a shot fired at nothing can be aimed afterwards, and then spent', async ({ gmPage }) => {
+    const { shooter, victim } = await aim(gmPage, { health: { value: 20, max: 20 } }, { targeted: false });
+    const message = await fireOffering(gmPage, shooter);
+
+    expect((await cardData(gmPage, message)).targets).toEqual([]);
+    await expect(row(gmPage, message)).toHaveCount(0);
+
+    // Aim now, and hand the card the crosshairs it was fired without.
+    await gmPage.evaluate(async (ids: Cast) => {
+      const w = window as any;
+      const token = await w.fromUuid(ids.victim);
+      (token.object ?? w.canvas.tokens.get(token.id))?.setTarget(true, { releaseOthers: true });
+    }, cast);
+    await gmPage
+      .locator(`[data-message-id="${message}"] .card-target-retarget .mothership-action`)
+      .first()
+      .click();
+
+    await expect(row(gmPage, message)).toContainText('__e2e_victim');
+
+    await (await clickable(gmPage, message, '.mothership-action')).click();
+    const total = await expect
+      .poll(async () => (await cardData(gmPage, message)).damageTotal)
+      .toBeGreaterThan(0)
+      .then(async () => (await cardData(gmPage, message)).damageTotal as number);
+
+    await (await clickable(gmPage, message, '.card-target .mothership-action')).click();
+    await expect.poll(() => stored(gmPage, victim, 'system.health.value')).toBe(20 - total);
   });
 
   // PSG 25 — a suit's Damage Reduction comes off each hit before the bar is touched.
@@ -347,38 +479,32 @@ test.describe('applying damage to the targeted actor', () => {
   test('a Wound the setting leaves unrolled is offered on the card, aimed at who took it', async ({
     gmPage,
   }) => {
-    await gmPage.evaluate(async () => {
-      await (window as any).game.settings.set('mothershiprpg', 'autoRollWoundsCharacters', false);
+    // After `aim`, which puts every setting back to its default — so this one has to be set here.
+    const { shooter, victim } = await aim(gmPage, {
+      health: { value: 1, max: 10 },
+      hits: { value: 0, max: 2 },
     });
-    try {
-      const { shooter, victim } = await aim(gmPage, {
-        health: { value: 1, max: 10 },
-        hits: { value: 0, max: 2 },
-      });
-      await gmPage.evaluate(async (u: string) => {
-        const actor = await (window as any).fromUuid(u);
-        const weapon = actor.items.find((i: any) => i.type === 'weapon');
-        await weapon.update({ 'system.woundEffect': 'Gunshot' });
-      }, shooter);
+    await gmPage.evaluate(async (u: string) => {
+      const w = window as any;
+      await w.game.settings.set('mothershiprpg', 'autoRollWoundsCharacters', false);
+      const actor = await w.fromUuid(u);
+      const weapon = actor.items.find((i: any) => i.type === 'weapon');
+      await weapon.update({ 'system.woundEffect': 'Gunshot' });
+    }, shooter);
 
-      const { message } = await fire(gmPage, shooter);
-      await row(gmPage, message).locator('.mothership-action').first().click();
-      await expect.poll(() => stored(gmPage, victim, 'system.hits.value')).toBe(1);
+    const { message } = await fire(gmPage, shooter);
+    await row(gmPage, message).locator('.mothership-action').first().click();
+    await expect.poll(() => stored(gmPage, victim, 'system.hits.value')).toBe(1);
 
-      // [-] · Roll Gunshot Wound · [+], on the card that reports the Wound.
-      // The log copy, not the notification column's: a card that is fading out is not clickable.
-      const offer = gmPage.locator('.chat-message .card-wound-roll').first();
-      await expect(offer.locator('.mothership-action')).toHaveCount(3);
-      await offer.locator('.mothership-action').nth(1).click();
+    // [-] · Roll Gunshot Wound · [+], on the card that reports the Wound.
+    // The log copy, not the notification column's: a card that is fading out is not clickable.
+    const offer = gmPage.locator('.chat-message .card-wound-roll').first();
+    await expect(offer.locator('.mothership-action')).toHaveCount(3);
+    await offer.locator('.mothership-action').nth(1).click();
 
-      await expect(gmPage.locator('#chat-notifications .chat-message').last()).toContainText('Gunshot Wound');
-      // Rolled against the actor the card names, and still only the one Wound the hit cost.
-      expect(await stored(gmPage, victim, 'system.hits.value')).toBe(1);
-    } finally {
-      await gmPage.evaluate(async () => {
-        await (window as any).game.settings.set('mothershiprpg', 'autoRollWoundsCharacters', true);
-      });
-    }
+    await expect(gmPage.locator('#chat-notifications .chat-message').last()).toContainText('Gunshot Wound');
+    // Rolled against the actor the card names, and still only the one Wound the hit cost.
+    expect(await stored(gmPage, victim, 'system.hits.value')).toBe(1);
   });
 
   // PSG 28 — the surplus carries into the refilled bar, and the Wound is what pays for it.

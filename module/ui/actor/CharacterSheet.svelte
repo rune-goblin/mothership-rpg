@@ -152,7 +152,9 @@
         />
       </div>
 
-      <ArmorBlock armor={system.stats.armor} oncover={setCover} />
+      <div class="armor">
+        <ArmorBlock armor={system.stats.armor} oncover={setCover} />
+      </div>
     </div>
 
     <div class="abilities rail">
@@ -173,7 +175,9 @@
           {@render checkStat(save)}
         {/each}
       </div>
+    </div>
 
+    <div class="trauma">
       <TextareaField
         fill
         name="system.other.stressdesc.value"
@@ -574,7 +578,8 @@
       display: grid;
       grid-template-areas:
         'header header header header'
-        'abilities centercol centercol saves'
+        'abilities tracks armor saves'
+        'abilities tracks trauma trauma'
         'mobilehealth mobilehealth mobilehealth mobilehealth';
       grid-template-columns:
         var(--charactersheet-rail-width)
@@ -623,28 +628,34 @@
       grid-template-columns: minmax(0, 1fr) var(--charactersheet-stat-value-column);
     }
 
-    /* The trauma response is the only thing under a rail that is not a pill, so it takes the gap
-       the stack does not. */
-    .saves > :global(*:last-child) {
-      margin-top: var(--charactersheet-header-grid-gap);
+    /* The sentence needs two columns to reach two lines, so it sits under armour and saves rather
+       than inside the rail it belongs to. It follows the saves down, not the tracks: armour ends
+       where the rail does, and the tracks column runs past both. */
+    .trauma {
+      grid-area: trauma;
     }
 
     /* What empties on the left, what protects on the right. Health, Wounds and Stress are the
        three tracks a session spends, read straight down; armour is not a track, so it keeps its
        own column, with the cover it borrows hanging off the bottom.
 
-       `subgrid`, so the two of them sit in the header's own columns and inherit its gutter rather
-       than inventing a narrower one in the middle of the row. */
+       The wrapper is dissolved rather than a subgrid: each half takes its own row in the header
+       grid too, which is what lets the trauma response start under the armour block while the
+       tracks run on past it. The element stays for the narrow layout, which regroups them. */
     .vitals {
-      grid-area: centercol;
-      display: grid;
-      grid-template-columns: subgrid;
-      align-items: start;
+      display: contents;
     }
 
     .tracks {
+      grid-area: tracks;
+      align-self: start;
       display: grid;
       gap: var(--charactersheet-header-grid-gap);
+    }
+
+    .armor {
+      grid-area: armor;
+      align-self: start;
     }
 
     /* Each column is sized already, so its blocks fill it: `.healthspread`'s 96% was a way of
@@ -683,15 +694,24 @@
         grid-template-areas:
           'header header'
           'abilities saves'
+          'trauma trauma'
           'mobilehealth mobilehealth';
         grid-template-columns: var(--charactersheet-rail-width) var(--charactersheet-rail-width);
       }
 
       .vitals {
+        display: grid;
         grid-area: mobilehealth;
         grid-template-columns: var(--charactersheet-tracks-width) var(--charactersheet-armor-width);
         justify-content: space-between;
         column-gap: var(--charactersheet-header-grid-gap);
+      }
+
+      /* The header grid's areas are gone at this width; without this the named lines resolve
+         against implicit tracks and throw both halves out of the vitals. */
+      .tracks,
+      .armor {
+        grid-area: auto;
       }
     }
   }

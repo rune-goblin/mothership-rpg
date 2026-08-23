@@ -12,13 +12,13 @@ import {
   CARD_FLAG,
   renderCard,
   rememberedCard,
+  storedTargets,
   SYSTEM_ID,
   type Card,
   type CardMessage,
 } from '../chat/cards.ts';
 import { isAdvantage, type Advantage } from '../rolls/spec.ts';
 import { isWoundTable, type TableKey } from '../tables/tables.ts';
-import { storedTargets } from './harm.ts';
 import { runTable, type TableResult } from './tables.ts';
 import { targetActor } from './targets.ts';
 

@@ -356,6 +356,8 @@ async function d100Check(
     critFail: character && !outcome.success && outcome.critical,
     targets,
     damageTotal: damage?.total ?? null,
+    // A hit that offers its damage has no total yet, and still has targets to show and to change.
+    targeting: weapon !== null && outcome.success,
     // Carried on the card so applying the damage can roll it: a Wound is the target's, and by then
     // the weapon that caused it is somebody else's document.
     wound: weapon === null || damage === null ? null : woundRollOf(weapon, outcome.critical),

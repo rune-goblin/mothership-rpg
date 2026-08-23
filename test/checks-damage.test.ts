@@ -12,12 +12,14 @@ import {
   damageOffer,
   rollDamage,
   rollDamageFormula,
+  rollDamageInCard,
   weaponDamage,
   woundEffectActions,
   woundOffer,
   woundRollOf,
 } from '../module/checks/damage.ts';
 import { CRIT_DAMAGE_CHOICES } from '../module/checks/settings.ts';
+import { checkCard, targetRows } from '../module/chat/cards.ts';
 import { clearFoundryStubs, installChat, installI18n, installRoll, installSettings } from './foundry-stubs.ts';
 
 afterEach(clearFoundryStubs);
@@ -373,5 +375,102 @@ describe('the damage flow never touches the magazine', () => {
     for (const field of ['curShots', 'shotsPerFire', 'useAmmo', '.fire(', '.reload(']) {
       expect(source).not.toContain(field);
     }
+  });
+});
+
+/**
+ * The offer path: the GM left damage to be rolled from the card, so the card was posted with no
+ * damage total — and everything the total decides was settled then, with the answer "none".
+ */
+describe('the damage a card was asked for', () => {
+  const TARGET = 'Scene.s1.Token.t1';
+
+  function offered(overrides: Record<string, unknown> = {}) {
+    const data = {
+      damageTotal: null,
+      showTargets: false,
+      targets: targetRows([{ uuid: TARGET, name: 'beastie', img: 'b.png' }], null),
+      ...overrides,
+    };
+    return {
+      getFlag: () => ({ kind: 'check', data }),
+      canUserModify: () => true,
+      update: vi.fn(async () => undefined),
+    };
+  }
+
+  const roll = async (message: ReturnType<typeof offered>) =>
+    await rollDamageInCard(message, {}, actor(40, [weapon()]), weapon(), '1d10');
+
+  it('turns the Targets block back on, which the card was posted without', async () => {
+    stubs({}, [{ faces: 10, result: 5 }]);
+    const card = offered();
+
+    expect(await roll(card)).toBe('rewritten');
+
+    const [update] = card.update.mock.lastCall as unknown as [Record<string, unknown>];
+    expect(update['flags.mothershiprpg.card.data.damageTotal']).toBe(5);
+    expect(update['flags.mothershiprpg.card.data.showTargets']).toBe(true);
+  });
+
+  // Without this the row is drawn, and has no button on it — the damage has nowhere to be spent.
+  it('gives every recorded row the buttons that spend the damage just rolled', async () => {
+    stubs({}, [{ faces: 10, result: 5 }]);
+    const card = offered();
+
+    await roll(card);
+
+    const [update] = card.update.mock.lastCall as unknown as [Record<string, unknown>];
+    const rows = update['flags.mothershiprpg.card.data.targets'] as { uuid: string; actions: string }[];
+    expect(rows).toHaveLength(1);
+    expect(rows[0].uuid).toBe(TARGET);
+    expect(rows[0].actions).toContain('@Harm[5]');
+  });
+
+  it('leaves a row that already paid alone', async () => {
+    stubs({}, [{ faces: 10, result: 5 }]);
+    const card = offered({
+      targets: targetRows([{ uuid: TARGET, name: 'beastie', img: 'b.png' }], 4, { [TARGET]: 4 }),
+    });
+
+    await roll(card);
+
+    const [update] = card.update.mock.lastCall as unknown as [Record<string, unknown>];
+    const rows = update['flags.mothershiprpg.card.data.targets'] as { taken: boolean; applied: number }[];
+    expect(rows[0]).toMatchObject({ taken: true, applied: 4 });
+  });
+
+  // The block is drawn before the damage exists: the row names who was aimed at, and Change Target
+  // is the only way to aim a shot that was fired at nothing.
+  it('is offered against the targets the card named, before the roll', () => {
+    stubs();
+    const card = checkCard({
+      source: { actorId: 'a1', actorImg: 'a.png', tokenId: null },
+      outcome: { total: 42, success: true, critical: false, autoFailed: false, dice: [], keep: 'low' } as never,
+      spec: { die: 'd100', modifier: 0, advantage: 'none', aim: 'low' } as never,
+      comparison: 'lessThan' as never,
+      header: 'Smart Rifle',
+      image: 'rifle.png',
+      attribute: 'Combat',
+      weapon: { _id: 'w1', name: 'Smart Rifle', img: 'r.png', system: { description: 'A rifle.' } },
+      targets: [{ uuid: TARGET, name: 'beastie', img: 'b.png' }],
+      damageTotal: null,
+      targeting: true,
+    });
+
+    const data = card.data as { showTargets: boolean; targets: { name: string; actions: string }[]; retarget: string };
+    expect(data.showTargets).toBe(true);
+    expect(data.targets[0].name).toBe('beastie');
+    // No damage to spend yet, so the row names the target and offers no button.
+    expect(data.targets[0].actions).toBe('');
+    expect(data.retarget).toBe('@Retarget[]');
+  });
+
+  it('refuses a card this user does not own', async () => {
+    stubs({}, [{ faces: 10, result: 5 }]);
+    const card = { ...offered(), canUserModify: () => false };
+
+    expect(await roll(card)).toBe('forbidden');
+    expect(card.update).not.toHaveBeenCalled();
   });
 });

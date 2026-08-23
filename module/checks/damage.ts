@@ -1,6 +1,7 @@
 // Nothing here may import a path that reaches the item's fire or reload methods —
 // test/checks-damage.test.ts asserts the import graph.
 import {
+  appliedSoFar,
   asset,
   CARD_FLAG,
   checkCard,
@@ -9,7 +10,9 @@ import {
   rememberedCard,
   renderCard,
   rollHtml,
+  storedTargets,
   SYSTEM_ID,
+  targetRows,
   type Card,
   type CardMessage,
   type CardTarget,
@@ -336,7 +339,18 @@ export async function rollDamageInCard(
   // No `critical`: the button was written carrying the crit rule already applied.
   const damage = await rollDamageFormula(actor, item, { override: formula });
   const flavorText = damageFlavor(damage);
-  const data = { ...card.data, flavorText, damageTotal: damage.total };
+
+  // The rows and `showTargets` are settled when the card is built, off a damage total this card did
+  // not have — so a card that offered its damage was posted with the Targets block switched off and
+  // every row's buttons blank. Rebuilding both here is what gives the damage somewhere to be spent.
+  const rows = targetRows(storedTargets(card.data), damage.total, appliedSoFar(card.data));
+  const data = {
+    ...card.data,
+    flavorText,
+    damageTotal: damage.total,
+    showTargets: true,
+    targets: rows,
+  };
   const content = await renderCard({ kind: card.kind, data });
   if (content === null) return 'unrecorded';
 
@@ -344,6 +358,8 @@ export async function rollDamageInCard(
     content,
     [`flags.${SYSTEM_ID}.${CARD_FLAG}.data.flavorText`]: flavorText,
     [`flags.${SYSTEM_ID}.${CARD_FLAG}.data.damageTotal`]: damage.total,
+    [`flags.${SYSTEM_ID}.${CARD_FLAG}.data.showTargets`]: true,
+    [`flags.${SYSTEM_ID}.${CARD_FLAG}.data.targets`]: rows,
   });
   return 'rewritten';
 }
