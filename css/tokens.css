@@ -489,6 +489,9 @@
     --gradient-stop-end: 100%;
 
     /* Measured from the sheet, unlike the placeholder gradients above. */
+    /* Adopted from Foundry's `elements.forms`, which used to paint it on every field we render.
+       Ours now, so the field affordance changes here rather than with a core release. */
+    --shadow-field-inset: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
     --shadow-glow: 0 0 15px var(--color-white);
     --shadow-glow-soft: 0 0 10px 0 var(--color-neutral-400);
     --ring-danger: 0 0 0 2px rgba(139, 0, 0, 0.35);

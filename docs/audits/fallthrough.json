@@ -1,1359 +1,6 @@
 {
-  "elements": 3511,
+  "elements": 2186,
   "findings": [
-    {
-      "surface": "character-sheet",
-      "signature": "a.item-control",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "article.creature-block",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "br",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "button.icon.toggle",
-      "prop": "color",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css a.button, button",
-      "value": "rgb(17, 17, 17)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "datalist",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.abilities.rail",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.active.items.tab",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.active.tab",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.armor",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.blankstat.flex-center.healthspread.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.circle-statwrapper-horizontal",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-horizontal.transparentBackground",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-vertical",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-menu",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.cover-row",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-row.is-empty",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-control",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-rule",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-title",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-column",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-columns",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-hero",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stat",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stats",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-row-controls",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-vitals.grid.grid-3col",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes-heading",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.editor-content",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.editor-host",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.flex-center.healthspread.minmaxtopstat.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-armor",
-      "signature": "div.flex-center.minmaxtopstat.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.header-fields.header-grid",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.health.vitals",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.healthmaxtext",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.healthspread.minmaxtopstat.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.is-fill.textarea-field",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstat.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstatwrapper",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.item-armor-grid",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.item-controls",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.item-disclosure",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstat.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatlabel",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatwrapper",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.maxhealth-input",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.minmaxtext.resource-label",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.minmaxwrapper",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mothership-sheet-root",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail-stack",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail.saves",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.resource",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.resource-label",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.slant",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.textvaluewrapper",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.tracks",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.trauma",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.valuewrapper",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.window-resize-handle",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "header.char-header.header-grid",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "header.creature-masthead",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "header.sheet-header",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "i.fa-edit.fa-solid",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css a.button, button",
-      "value": "rgb(17, 17, 17)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-edit.fas",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-plus.fas",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-trash.fas",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "img.creature-portrait.noborder",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "input",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "input",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(0, 0, 0)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "input",
-      "prop": "color",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "input.circle-input",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "input.circle-input",
-      "prop": "color",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "input.creature-name.noborder",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "input.darkGreyText.maxhealth-input",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "input.darkGreyText.textvaluewrapper-input",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "input.maxhealth-input.whiteText",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "input.noborder",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "input.stat-modifier-field",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "label.minmaxtext.resource-label",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "label.minmaxtext.resource-label.rollable",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "label.resource-label",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "li",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "li.draggable.flexrow.item",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "li.flexrow.item.item-header",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "ol.items-list",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "option",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "p",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "prose-mirror.editor.inactive.prosemirror",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-attacks",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-brief",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.sheet-body",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.window-content",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "span.circle-slot",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "span.resource-label",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-armor",
-      "signature": "sup",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "textarea.textarea-input",
-      "prop": "box-shadow",
-      "verdict": "uncovered",
-      "supplier": "foundry2.css textarea",
-      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
-      "themed": true,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "ul.condition-modifiers",
-      "prop": "color",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "rgb(34, 34, 34)",
-      "themed": true,
-      "surfaces": [
-        "item-sheet-condition"
-      ]
-    },
     {
       "surface": "character-sheet",
       "signature": "a.active.tab-select",
@@ -1375,24 +22,6 @@
     {
       "surface": "character-sheet",
       "signature": "a.active.tab-select",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css nav.tabs",
-      "value": "40px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "a.active.tab-select",
       "prop": "text-align",
       "verdict": "contested",
       "supplier": "foundry2.css nav.tabs [data-tab]",
@@ -1406,32 +35,6 @@
         "item-sheet-armor",
         "item-sheet-ability",
         "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "a.item-control",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "a.item-control",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
       ]
     },
     {
@@ -1452,21 +55,6 @@
     {
       "surface": "character-sheet",
       "signature": "a.tab-select",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css nav.tabs",
-      "value": "40px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "a.tab-select",
       "prop": "text-align",
       "verdict": "contested",
       "supplier": "foundry2.css nav.tabs [data-tab]",
@@ -1477,62 +65,6 @@
         "character-sheet:weapons",
         "item-sheet-weapon",
         "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "article.creature-block",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "article.creature-block",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "br",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "br",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
       ]
     },
     {
@@ -1609,7 +141,7 @@
       "surface": "character-sheet",
       "signature": "button.cover-choice",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -1729,9 +261,9 @@
       "surface": "item-sheet-weapon",
       "signature": "button.damage-mode-add",
       "prop": "font-family",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css a.button, button",
-      "value": "Signika, ui-sans-serif, sans-serif",
+      "value": "Barlow, sans-serif",
       "themed": false,
       "surfaces": [
         "item-sheet-weapon"
@@ -1753,7 +285,7 @@
       "surface": "item-sheet-weapon",
       "signature": "button.damage-mode-add",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -1765,7 +297,7 @@
       "surface": "item-sheet-weapon",
       "signature": "button.damage-mode-add",
       "prop": "font-weight",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "400",
       "themed": false,
@@ -2810,6 +1342,23 @@
     {
       "surface": "creature-sheet",
       "signature": "button.icon.toggle",
+      "prop": "color",
+      "verdict": "contested",
+      "supplier": "foundry2.css a.button, button",
+      "value": "rgb(17, 17, 17)",
+      "themed": false,
+      "surfaces": [
+        "creature-sheet",
+        "item-sheet-gear",
+        "item-sheet-weapon",
+        "item-sheet-armor",
+        "item-sheet-ability",
+        "item-sheet-condition"
+      ]
+    },
+    {
+      "surface": "creature-sheet",
+      "signature": "button.icon.toggle",
       "prop": "column-gap",
       "verdict": "uncovered",
       "supplier": "foundry2.css a.button, button",
@@ -2862,7 +1411,7 @@
       "surface": "creature-sheet",
       "signature": "button.icon.toggle",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -3000,9 +1549,9 @@
       "surface": "character-sheet:weapons",
       "signature": "button.stepper-step",
       "prop": "font-family",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css a.button, button",
-      "value": "Signika, ui-sans-serif, sans-serif",
+      "value": "Barlow, sans-serif",
       "themed": false,
       "surfaces": [
         "character-sheet:weapons"
@@ -3024,7 +1573,7 @@
       "surface": "character-sheet:weapons",
       "signature": "button.stepper-step",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -3036,7 +1585,7 @@
       "surface": "character-sheet:weapons",
       "signature": "button.stepper-step",
       "prop": "font-weight",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "400",
       "themed": false,
@@ -3093,720 +1642,6 @@
       ]
     },
     {
-      "surface": "item-sheet-weapon",
-      "signature": "datalist",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "datalist",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.abilities.rail",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.abilities.rail",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.active.items.tab",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.active.items.tab",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.active.tab",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.active.tab",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.armor",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.armor",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.blankstat.flex-center.healthspread.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.blankstat.flex-center.healthspread.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.circle-statwrapper-horizontal",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.circle-statwrapper-horizontal",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-horizontal.transparentBackground",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-horizontal.transparentBackground",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-vertical",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.circle-statwrapper-vertical",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-menu",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-menu",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.cover-row",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.cover-row",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-row.is-empty",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.cover-row.is-empty",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-control",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-control",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-rule",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-bar-rule",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-column",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-column",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-columns",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-columns",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-hero",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-hero",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stat",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stat",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stats",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-plate-stats",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-row-controls",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-special-controls",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-special-controls",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-special.draggable.item",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-special.draggable.item",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-vitals.grid.grid-3col",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.creature-vitals.grid.grid-3col",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes-heading",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.damage-modes-heading",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.editor-content",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.editor-content",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
       "surface": "creature-sheet",
       "signature": "div.editor-content",
       "prop": "outline-color",
@@ -3841,890 +1676,6 @@
       ]
     },
     {
-      "surface": "creature-sheet",
-      "signature": "div.editor-host",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.editor-host",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.flex-center.healthspread.minmaxtopstat.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.flex-center.healthspread.minmaxtopstat.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-armor",
-      "signature": "div.flex-center.minmaxtopstat.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-armor",
-      "signature": "div.flex-center.minmaxtopstat.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.grid.header",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.grid.header",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.header",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.header",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.header-fields.header-grid",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.header-fields.header-grid",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headergrid",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headergrid",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headerinputfield",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "20px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headerinputtext",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "18px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headernamegrid",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headernamegrid",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headerwide",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.headerwide",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.health.vitals",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.health.vitals",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.healthspread.minmaxtopstat.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.healthspread.minmaxtopstat.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.is-fill.textarea-field",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.is-fill.textarea-field",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstat.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstat.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstatwrapper",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "div.is-lg.mainstatwrapper",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.item-armor-grid",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.item-armor-grid",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.item-controls",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.item-disclosure",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstat.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstat.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatlabel",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatlabel",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatwrapper",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mainstatwrapper",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.maxhealth-input",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "30px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.minmaxwrapper",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.minmaxwrapper",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mothership-sheet-root",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.mothership-sheet-root",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail-stack",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail-stack",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail.saves",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.rail.saves",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.resource",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.resource",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.resource-label",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.resource-label",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.slant",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.slant",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.textvaluewrapper",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "div.textvaluewrapper",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-armor"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.tracks",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.tracks",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.trauma",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.trauma",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.valuewrapper",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "div.valuewrapper",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.whiteText",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "30px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
       "surface": "character-sheet",
       "signature": "div.window-resize-handle",
       "prop": "background-color",
@@ -4750,44 +1701,6 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css .application .window-resize-handle",
       "value": "url(\"http://127.0.0.1:30005/ui/resize-handle.webp\")",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.window-resize-handle",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "div.window-resize-handle",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -5011,88 +1924,6 @@
     },
     {
       "surface": "character-sheet",
-      "signature": "header.char-header.header-grid",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "header.char-header.header-grid",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "header.creature-masthead",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "header.creature-masthead",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "header.sheet-header",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "header.sheet-header",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
       "signature": "header.window-header",
       "prop": "color",
       "verdict": "uncovered",
@@ -5136,25 +1967,6 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css .application .window-header",
       "value": "13px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "header.window-header",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "16.25px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -5553,20 +2365,6 @@
     {
       "surface": "character-sheet",
       "signature": "i.fa-edit.fas",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-edit.fas",
       "prop": "font-style",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
@@ -5598,7 +2396,7 @@
       "prop": "line-height",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
-      "value": "14px",
+      "value": "14.4px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -5646,25 +2444,6 @@
       "verdict": "inherited",
       "supplier": "foundry2.css .application .window-header",
       "value": "13px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-fw.hidden.window-icon",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "16.25px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -5755,20 +2534,6 @@
     {
       "surface": "character-sheet",
       "signature": "i.fa-plus.fas",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-plus.fas",
       "prop": "font-style",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
@@ -5802,7 +2567,7 @@
       "prop": "line-height",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
-      "value": "14px",
+      "value": "14.4px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -5903,20 +2668,6 @@
     {
       "surface": "character-sheet",
       "signature": "i.fa-trash.fas",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "i.fa-trash.fas",
       "prop": "font-style",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
@@ -5948,7 +2699,7 @@
       "prop": "line-height",
       "verdict": "uncovered",
       "supplier": "all.min.css .fa, .fa-brands, .fa-chisel, .fa-classic, .fa-duotone, .fa-etch, .fa-graphite, .fa-jelly, .fa-jelly-duo, .fa-jelly-fill, .fa-light, .fa-notdog, .fa-notdog-duo, .fa-regular, .fa-semibold, .fa-sharp, .fa-sharp-duotone, .fa-slab, .fa-slab-press, .fa-solid, .fa-thin, .fa-thumbprint, .fa-utility, .fa-utility-duo, .fa-utility-fill, .fa-whiteboard, .fab, .facr, .fad, .fadl, .fadr, .fadt, .faes, .fagt, .fajdr, .fajfr, .fajr, .fal, .fands, .fans, .far, .fas, .fasdl, .fasdr, .fasds, .fasdt, .fasl, .faslpr, .faslr, .fasr, .fass, .fast, .fat, .fatl, .faudsb, .faufsb, .fausb, .fawsb",
-      "value": "14px",
+      "value": "14.4px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -6019,94 +2770,36 @@
       ]
     },
     {
-      "surface": "creature-sheet",
-      "signature": "img.creature-portrait.noborder",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "img.creature-portrait.noborder",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "img.profile",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "img.profile",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "img.sheet-header-profile",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-gear",
-      "signature": "img.sheet-header-profile",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
       "surface": "item-sheet-weapon",
       "signature": "input",
       "prop": "border-top-left-radius",
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "item-sheet-weapon"
+      ]
+    },
+    {
+      "surface": "item-sheet-weapon",
+      "signature": "input",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
+      "themed": false,
+      "surfaces": [
+        "item-sheet-weapon"
+      ]
+    },
+    {
+      "surface": "item-sheet-weapon",
+      "signature": "input",
+      "prop": "color",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgb(17, 17, 17)",
       "themed": false,
       "surfaces": [
         "item-sheet-weapon"
@@ -6131,7 +2824,7 @@
       "prop": "font-size",
       "verdict": "uncovered",
       "supplier": "foundry2.css input, button, textarea, select",
-      "value": "14px",
+      "value": "14.4px",
       "themed": false,
       "surfaces": [
         "item-sheet-weapon",
@@ -6142,7 +2835,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6170,7 +2863,7 @@
       "prop": "line-height",
       "verdict": "uncovered",
       "supplier": "foundry2.css input, button, textarea, select",
-      "value": "17.5px",
+      "value": "18px",
       "themed": false,
       "surfaces": [
         "item-sheet-weapon",
@@ -6181,7 +2874,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6193,7 +2886,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6242,6 +2935,34 @@
     {
       "surface": "character-sheet",
       "signature": "input.circle-input",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
+      "themed": false,
+      "surfaces": [
+        "character-sheet",
+        "character-sheet:weapons",
+        "creature-sheet"
+      ]
+    },
+    {
+      "surface": "character-sheet",
+      "signature": "input.circle-input",
+      "prop": "color",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgb(17, 17, 17)",
+      "themed": false,
+      "surfaces": [
+        "character-sheet",
+        "character-sheet:weapons",
+        "creature-sheet"
+      ]
+    },
+    {
+      "surface": "character-sheet",
+      "signature": "input.circle-input",
       "prop": "font-family",
       "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
@@ -6271,7 +2992,7 @@
       "surface": "character-sheet",
       "signature": "input.circle-input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6313,7 +3034,7 @@
       "surface": "character-sheet",
       "signature": "input.circle-input",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6327,7 +3048,7 @@
       "surface": "character-sheet",
       "signature": "input.circle-input",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6372,6 +3093,18 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "creature-sheet"
+      ]
+    },
+    {
+      "surface": "creature-sheet",
+      "signature": "input.creature-name.noborder",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "creature-sheet"
@@ -6417,7 +3150,7 @@
       "surface": "creature-sheet",
       "signature": "input.creature-name.noborder",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6453,7 +3186,7 @@
       "surface": "creature-sheet",
       "signature": "input.creature-name.noborder",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6465,7 +3198,7 @@
       "surface": "creature-sheet",
       "signature": "input.creature-name.noborder",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6504,6 +3237,25 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "character-sheet",
+        "character-sheet:weapons",
+        "creature-sheet",
+        "item-sheet-gear",
+        "item-sheet-weapon",
+        "item-sheet-armor",
+        "item-sheet-ability",
+        "item-sheet-condition"
+      ]
+    },
+    {
+      "surface": "character-sheet",
+      "signature": "input.darkGreyText.maxhealth-input",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -6577,7 +3329,7 @@
       "surface": "character-sheet",
       "signature": "input.darkGreyText.maxhealth-input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6634,7 +3386,7 @@
       "surface": "character-sheet",
       "signature": "input.darkGreyText.maxhealth-input",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6653,7 +3405,7 @@
       "surface": "character-sheet",
       "signature": "input.darkGreyText.maxhealth-input",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6713,6 +3465,19 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "item-sheet-weapon",
+        "item-sheet-armor"
+      ]
+    },
+    {
+      "surface": "item-sheet-weapon",
+      "signature": "input.darkGreyText.textvaluewrapper-input",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "item-sheet-weapon",
@@ -6762,7 +3527,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input.darkGreyText.textvaluewrapper-input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6801,7 +3566,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input.darkGreyText.textvaluewrapper-input",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6814,7 +3579,7 @@
       "surface": "item-sheet-weapon",
       "signature": "input.darkGreyText.textvaluewrapper-input",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6856,6 +3621,18 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "creature-sheet"
+      ]
+    },
+    {
+      "surface": "creature-sheet",
+      "signature": "input.maxhealth-input.whiteText",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "creature-sheet"
@@ -6901,7 +3678,7 @@
       "surface": "creature-sheet",
       "signature": "input.maxhealth-input.whiteText",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -6937,7 +3714,7 @@
       "surface": "creature-sheet",
       "signature": "input.maxhealth-input.whiteText",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -6949,7 +3726,7 @@
       "surface": "creature-sheet",
       "signature": "input.maxhealth-input.whiteText",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -6988,6 +3765,24 @@
       "verdict": "uncovered",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "4px",
+      "themed": false,
+      "surfaces": [
+        "character-sheet",
+        "character-sheet:weapons",
+        "item-sheet-gear",
+        "item-sheet-weapon",
+        "item-sheet-armor",
+        "item-sheet-ability",
+        "item-sheet-condition"
+      ]
+    },
+    {
+      "surface": "character-sheet",
+      "signature": "input.noborder",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -7057,7 +3852,7 @@
       "surface": "character-sheet",
       "signature": "input.noborder",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -7111,7 +3906,7 @@
       "surface": "character-sheet",
       "signature": "input.noborder",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -7129,7 +3924,7 @@
       "surface": "character-sheet",
       "signature": "input.noborder",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -7195,6 +3990,19 @@
     {
       "surface": "character-sheet",
       "signature": "input.stat-modifier-field",
+      "prop": "box-shadow",
+      "verdict": "contested",
+      "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
+      "themed": false,
+      "surfaces": [
+        "character-sheet",
+        "character-sheet:weapons"
+      ]
+    },
+    {
+      "surface": "character-sheet",
+      "signature": "input.stat-modifier-field",
       "prop": "color",
       "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
@@ -7235,7 +4043,7 @@
       "surface": "character-sheet",
       "signature": "input.stat-modifier-field",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -7274,7 +4082,7 @@
       "surface": "character-sheet",
       "signature": "input.stat-modifier-field",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -7287,7 +4095,7 @@
       "surface": "character-sheet",
       "signature": "input.stat-modifier-field",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -7323,105 +4131,12 @@
       ]
     },
     {
-      "surface": "item-sheet-weapon",
-      "signature": "label.resource-label",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "label.resource-label",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "li",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "li",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "li.draggable.flexrow.item",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "li.flexrow.item.item-header",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "nav.mothership.sheet-tabs.tabs",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
       "surface": "character-sheet",
       "signature": "nav.mothership.sheet-tabs.tabs",
       "prop": "line-height",
       "verdict": "uncovered",
       "supplier": "foundry2.css nav.tabs",
-      "value": "35px",
+      "value": "36px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -7431,34 +4146,6 @@
         "item-sheet-armor",
         "item-sheet-ability",
         "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "ol.items-list",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "ol.items-list",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
       ]
     },
     {
@@ -7532,30 +4219,6 @@
     {
       "surface": "item-sheet-weapon",
       "signature": "option",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "option",
-      "prop": "font-style",
-      "verdict": "inherited",
-      "supplier": "foundry2.css input, button, textarea, select",
-      "value": "normal",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "option",
       "prop": "line-height",
       "verdict": "inherited",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
@@ -7563,40 +4226,6 @@
       "themed": false,
       "surfaces": [
         "item-sheet-weapon"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "p",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "p",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
       ]
     },
     {
@@ -7653,192 +4282,12 @@
     {
       "surface": "creature-sheet",
       "signature": "prose-mirror.editor.inactive.prosemirror",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "prose-mirror.editor.inactive.prosemirror",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "prose-mirror.editor.inactive.prosemirror",
       "prop": "row-gap",
       "verdict": "uncovered",
       "supplier": "foundry2.css .prosemirror, prose-mirror",
       "value": "8px",
       "themed": false,
       "surfaces": [
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-attacks",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-attacks",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-brief",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-brief",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-specials",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "creature-sheet",
-      "signature": "section.creature-specials",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.sheet-body",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.sheet-body",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.window-content",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet",
-        "item-sheet-gear",
-        "item-sheet-weapon",
-        "item-sheet-armor",
-        "item-sheet-ability",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "section.window-content",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
         "creature-sheet",
         "item-sheet-gear",
         "item-sheet-weapon",
@@ -7887,7 +4336,7 @@
       "surface": "item-sheet-weapon",
       "signature": "select.darkGreyText.textvaluewrapper-input",
       "prop": "font-family",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "Barlow, sans-serif",
       "themed": false,
@@ -7911,7 +4360,7 @@
       "surface": "item-sheet-weapon",
       "signature": "select.darkGreyText.textvaluewrapper-input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -7947,7 +4396,7 @@
       "surface": "item-sheet-weapon",
       "signature": "select.darkGreyText.textvaluewrapper-input",
       "prop": "outline-color",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "rgba(0, 0, 0, 0)",
       "themed": false,
@@ -7959,7 +4408,7 @@
       "surface": "item-sheet-weapon",
       "signature": "select.darkGreyText.textvaluewrapper-input",
       "prop": "outline-width",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input[type=\"text\"], input[type=\"number\"], input[type=\"password\"], input[type=\"date\"], input[type=\"time\"], input[type=\"datetime-local\"], input[type=\"search\"], input[type=\"file\"], select",
       "value": "1px",
       "themed": false,
@@ -7992,38 +4441,12 @@
       ]
     },
     {
-      "surface": "creature-sheet",
-      "signature": "span.ability-mod.creature-plate-label.rollable.stat-roll",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "18px",
-      "themed": false,
-      "surfaces": [
-        "creature-sheet"
-      ]
-    },
-    {
       "surface": "character-sheet",
-      "signature": "span.ability-mod.mainstattext.rollable.stat-roll",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "25px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "span.circle-adjusted.is-up",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "30px",
+      "signature": "textarea.textarea-input",
+      "prop": "border-top-left-radius",
+      "verdict": "uncovered",
+      "supplier": "foundry2.css textarea",
+      "value": "15px",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -8032,65 +4455,11 @@
     },
     {
       "surface": "character-sheet",
-      "signature": "span.circle-slot",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "character-sheet",
-      "signature": "span.circle-slot",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "character-sheet",
-        "character-sheet:weapons",
-        "creature-sheet"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "span.resource-label",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-weapon",
-      "signature": "span.resource-label",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-weapon",
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "character-sheet",
       "signature": "textarea.textarea-input",
-      "prop": "border-top-left-radius",
-      "verdict": "uncovered",
+      "prop": "box-shadow",
+      "verdict": "contested",
       "supplier": "foundry2.css textarea",
-      "value": "15px",
+      "value": "rgba(0, 0, 0, 0.1) 0px 0px 6px 0px inset",
       "themed": false,
       "surfaces": [
         "character-sheet",
@@ -8140,7 +4509,7 @@
       "surface": "character-sheet",
       "signature": "textarea.textarea-input",
       "prop": "font-style",
-      "verdict": "uncovered",
+      "verdict": "contested",
       "supplier": "foundry2.css input, button, textarea, select",
       "value": "normal",
       "themed": false,
@@ -8199,30 +4568,6 @@
       "surfaces": [
         "character-sheet",
         "character-sheet:weapons"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "ul.condition-modifiers",
-      "prop": "font-size",
-      "verdict": "inherited",
-      "supplier": "foundry2.css .application",
-      "value": "14px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-condition"
-      ]
-    },
-    {
-      "surface": "item-sheet-condition",
-      "signature": "ul.condition-modifiers",
-      "prop": "line-height",
-      "verdict": "inherited",
-      "supplier": "foundry2.css body",
-      "value": "17.5px",
-      "themed": false,
-      "surfaces": [
-        "item-sheet-condition"
       ]
     },
     {

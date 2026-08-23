@@ -143,8 +143,16 @@
     margin: var(--space-0);
   }
 
+  /* The sheet root is ours, so the baseline every descendant inherits is ours to set. Foundry's
+     `.application` and `body` rules were supplying colour, size and line-height to everything
+     inside -- 263 of the fall-through audit's findings, and the colour among them moves with the
+     core theme, so a Warden on a light theme read a different sheet. Ink and metrics are pinned
+     here; `@layer system` outranks `applications`, so no specificity or !important is needed. */
   .mothership.application {
-    font-family: "Barlow", sans-serif;
+    color: var(--text-primary);
+    font-family: var(--font-sans-mothership);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-tighter);
   }
 
   .mothership.application .window-content {
@@ -276,9 +284,41 @@
   }
 
 
+  /* Foundry's `elements.forms` and `a.button, button` rules dressed every control we render --
+     the ink, the field's inset shadow, and on buttons Signika, its UI font rather than ours.
+     Only what every control shares is owned here; geometry (padding, radius, size, line-height)
+     differs per control and stays with the component that draws it.
+
+     `:where()` carries no specificity, so this whole tier stays at (0,1,1) and every component
+     rule still outranks it. That matters more than usual: `@layer system` beats Foundry's
+     `applications`, so a heavier selector here would silently outrank our own components too.
+     The window frame is Foundry's to dress, so its header controls stay out of all of it. */
+  .mothership :is(input, select, textarea, button):where(:not(.header-control)) {
+    color: var(--text-primary);
+    font-style: normal;
+    outline-color: transparent;
+    outline-width: var(--border-width-1);
+  }
+
+  /* Split from the ink above because these two pick a font *face*, and an icon button draws its
+     glyph out of its own family and weight -- Foundry's ProseMirror toggle among them, which
+     turned into a blank square the first time this tier took them. No button of ours wears
+     `.icon` or an `fa-` class, so excluding them costs us nothing and keeps every glyph. */
+  .mothership :is(input, select, textarea, button):where(:not(.header-control, .icon, [class*="fa-"])) {
+    font-family: var(--font-sans-mothership);
+  }
+
+  .mothership button:where(:not(.header-control, .icon, [class*="fa-"])) {
+    font-weight: var(--font-weight-normal);
+  }
+
+  .mothership :is(input, textarea):where(:not(.header-control)) {
+    box-shadow: var(--shadow-field-inset);
+  }
+
   .mothership input {
     font-weight: inherit;
-    font-family: "Barlow", sans-serif;
+    font-family: var(--font-sans-mothership);
   }
 
   /* Foundry's elements.forms layer paints a 2px focus outline on the input itself. Ours are

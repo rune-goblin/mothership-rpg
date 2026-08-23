@@ -31,7 +31,6 @@
 </nav>
 
 <style>
-  /* nav.tabs's flex row, gap and line-height come from Foundry's own core CSS, not this file. */
   @layer system {
     nav {
       --tabs-bar-surface: var(--surface-neutral-lowest);
@@ -47,7 +46,17 @@
       --tabs-item-font-size: var(--font-size-lg);
       --tabs-item-font-weight: var(--font-weight-bold);
       --tabs-item-active-text-shadow: 0 0 10px var(--text-inverted);
+      --tabs-bar-gap: var(--space-16);
+      /* A ratio, not a length: the bar and the tabs run different font sizes, and this is what
+         makes each tab's box the full height of the bar off its own. Foundry's `nav.tabs` used
+         to supply it -- along with the flex row below -- so the strip was laid out by core. */
+      --tabs-item-line-height: 2.5;
 
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: var(--tabs-bar-gap);
       flex: 0;
       height: var(--tabs-bar-height);
       padding: var(--tabs-bar-padding-block) var(--tabs-bar-padding-inline);
@@ -62,6 +71,7 @@
       color: var(--tabs-item-text);
       font-size: var(--tabs-item-font-size);
       font-weight: var(--tabs-item-font-weight);
+      line-height: var(--tabs-item-line-height);
       text-align: center;
 
       &.active {
